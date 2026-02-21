@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Magic Hour ─ きっと思ったよりも素敵な日になる</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a2e;
+      --text-primary: #e0ddd5;
+      --text-secondary: #8a8a9a;
+      --accent: #4a9eff;
+      --accent-dim: #2a5a9a;
+      --gold: #c4a35a;
+      --chapter-border: #2a2a3e;
+      --serif: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+      --sans: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.95;
+      min-height: 100vh;
+    }
+
+    /* ─── Header ─── */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 100px 20px 80px;
+      background: linear-gradient(180deg, #1a2a4a 0%, #0f1a2f 100%);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(120,180,255,0.15) 0%, transparent 70%);
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #ffffff;
+      text-shadow: 0 2px 20px rgba(100,160,255,0.3);
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: #b0c4de;
+      letter-spacing: 0.15em;
+    }
+    .hero-line {
+      width: 60px; height: 1px;
+      background: var(--gold);
+      margin: 28px auto 0;
+    }
+
+    /* ─── Navigation ─── */
+    .nav-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--chapter-border);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      overflow-x: auto;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+    }
+    .nav-bar .nav-title {
+      color: var(--gold);
+      font-weight: 700;
+      white-space: nowrap;
+      margin-right: 8px;
+    }
+    .nav-bar a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 4px 10px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .nav-bar a:hover {
+      color: var(--accent);
+      background: rgba(74,158,255,0.1);
+    }
+
+    /* ─── TOC ─── */
+    .toc {
+      max-width: 700px;
+      margin: 60px auto 40px;
+      padding: 0 20px;
+    }
+    .toc h3 {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .toc-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 14px 18px;
+      color: var(--text-primary);
+      text-decoration: none;
+      border-left: 2px solid var(--chapter-border);
+      transition: all 0.25s;
+      font-family: var(--sans);
+      font-size: 0.95rem;
+    }
+    .toc-item:hover {
+      border-color: var(--accent);
+      background: rgba(74,158,255,0.04);
+      padding-left: 24px;
+    }
+    .toc-num {
+      font-size: 0.75rem;
+      color: var(--accent-dim);
+      font-weight: 700;
+      min-width: 20px;
+    }
+
+    /* ─── Characters ─── */
+    .characters {
+      max-width: 700px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+    .characters h3 {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .char-card {
+      background: var(--bg-card);
+      border: 1px solid var(--chapter-border);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .char-name {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .char-meta {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .char-meta span {
+      background: rgba(74,158,255,0.1);
+      padding: 1px 8px;
+      border-radius: 4px;
+    }
+    .char-appearance {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 6px;
+      border-left: 2px solid var(--chapter-border);
+      padding-left: 10px;
+    }
+    .char-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── Divider ─── */
+    .section-divider {
+      width: 40px; height: 1px;
+      background: var(--chapter-border);
+      margin: 0 auto;
+    }
+
+    /* ─── Chapter ─── */
+    .chapter {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 20px;
+      border-top: 1px solid var(--chapter-border);
+    }
+    .chapter-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .chapter-number {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      color: var(--accent-dim);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .chapter-title {
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .chapter-image {
+      margin: 0 -20px 40px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--chapter-border);
+    }
+    .chapter-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.92;
+    }
+    .chapter-body p {
+      margin-bottom: 1.2em;
+      text-indent: 1em;
+      text-align: justify;
+    }
+    .chapter-body p:empty {
+      display: none;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      text-align: center;
+      padding: 60px 20px;
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--chapter-border);
+    }
+
+    /* ─── Reading mode toggle ─── */
+    .mode-toggle {
+      position: fixed; bottom: 20px; right: 20px; z-index: 200;
+      background: var(--bg-card);
+      border: 1px solid var(--chapter-border);
+      color: var(--text-secondary);
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mode-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+
+    /* --- TTS Read Aloud --- */
+    .tts-fab {
+      position: fixed; bottom: 80px; right: 20px; z-index: 200;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--accent); color: #fff; border: none;
+      font-size: 22px; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tts-fab:hover { transform: scale(1.1); }
+    .tts-fab.speaking { background: #e74c3c; animation: tts-pulse 1.5s infinite; }
+    @keyframes tts-pulse {
+      0%,100% { box-shadow: 0 4px 16px rgba(231,76,60,0.4); }
+      50% { box-shadow: 0 4px 24px rgba(231,76,60,0.7); }
+    }
+    .tts-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(20,20,30,0.95); backdrop-filter: blur(12px);
+      border-top: 1px solid var(--chapter-border);
+      padding: 10px 16px; display: none;
+      align-items: center; gap: 10px;
+      font-family: var(--sans); font-size: 0.85rem;
+    }
+    .tts-bar.active { display: flex; flex-wrap: wrap; }
+    .tts-bar button {
+      background: none; border: 1px solid var(--text-secondary);
+      color: var(--text-primary); border-radius: 6px;
+      padding: 6px 12px; cursor: pointer; font-size: 0.8rem;
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .tts-bar button:hover { border-color: var(--accent); color: var(--accent); }
+    .tts-bar .tts-info {
+      flex: 1; color: var(--text-secondary);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      min-width: 80px;
+    }
+    .tts-bar .tts-speed {
+      display: flex; align-items: center; gap: 4px;
+      color: var(--text-secondary); font-size: 0.75rem;
+    }
+    .tts-bar .tts-speed input { width: 60px; accent-color: var(--accent); }
+    body.light .tts-bar {
+      background: rgba(245,245,240,0.95); border-top-color: #ddd;
+    }
+    body.light .tts-bar button { border-color: #999; color: #333; }
+    body.light .tts-bar .tts-info { color: #666; }
+
+    /* ─── Light mode ─── */
+    body.light {
+      --bg-primary: #f5f0e8;
+      --bg-secondary: #ebe5d9;
+      --bg-card: #fff;
+      --text-primary: #2a2a2a;
+      --text-secondary: #6a6a6a;
+      --chapter-border: #d5cfc3;
+      --accent: #2563eb;
+      --accent-dim: #6b9eff;
+      --gold: #8a6d2b;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      body { font-size: 15px; }
+      .chapter { padding: 50px 16px; }
+    }
+
+    /* ─── Scroll progress ─── */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; z-index: 200;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      width: 0%;
+      transition: width 0.1s;
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="progress"></div>
+
+  <header class="hero">
+    <h1 class="hero-title">Magic Hour ─ きっと思ったよりも素敵な日になる</h1>
+    <p class="hero-sub">GENERATED WITH LOCAL AI — OLLAMA + STABLE DIFFUSION</p>
+    <div class="hero-line"></div>
+  </header>
+
+  <nav class="nav-bar">
+    <span class="nav-title">目次</span>
+    <a href="#chapter-1">第1章</a><a href="#chapter-2">第2章</a><a href="#chapter-3">第3章</a><a href="#chapter-4">第4章</a><a href="#chapter-5">第5章</a><a href="#chapter-6">第6章</a><a href="#chapter-7">第7章</a><a href="#chapter-8">第8章</a><a href="#chapter-9">第9章</a><a href="#chapter-10">第10章</a><a href="#chapter-11">第11章</a><a href="#chapter-12">第12章</a><a href="#chapter-13">第13章</a><a href="#chapter-14">第14章</a><a href="#chapter-15">第15章</a><a href="#chapter-16">第16章</a><a href="#chapter-17">第17章</a><a href="#chapter-18">第18章</a><a href="#chapter-19">第19章</a><a href="#chapter-20">第20章</a><a href="#chapter-21">第21章</a><a href="#chapter-22">第22章</a><a href="#chapter-23">第23章</a><a href="#chapter-24">第24章</a><a href="#chapter-25">第25章</a><a href="#chapter-26">第26章</a><a href="#chapter-27">第27章</a><a href="#chapter-28">第28章</a><a href="#chapter-29">第29章</a><a href="#chapter-30">第30章</a>
+  </nav>
+
+  <div class="toc">
+    <h3>— 目次 —</h3>
+        <a href="#chapter-1" class="toc-item"><span class="toc-num">1</span><span class="toc-label">1秒ごと変わってく</span></a>
+        <a href="#chapter-2" class="toc-item"><span class="toc-num">2</span><span class="toc-label">ポケットの宝物</span></a>
+        <a href="#chapter-3" class="toc-item"><span class="toc-num">3</span><span class="toc-label">茜に染まる鳥</span></a>
+        <a href="#chapter-4" class="toc-item"><span class="toc-num">4</span><span class="toc-label">あなたのひとコマ</span></a>
+        <a href="#chapter-5" class="toc-item"><span class="toc-num">5</span><span class="toc-label">夕暮れてんとう虫</span></a>
+        <a href="#chapter-6" class="toc-item"><span class="toc-num">6</span><span class="toc-label">魔法のコトバ</span></a>
+        <a href="#chapter-7" class="toc-item"><span class="toc-num">7</span><span class="toc-label">届かない声</span></a>
+        <a href="#chapter-8" class="toc-item"><span class="toc-num">8</span><span class="toc-label">ハートが充電不足</span></a>
+        <a href="#chapter-9" class="toc-item"><span class="toc-num">9</span><span class="toc-label">山に帰ってく</span></a>
+        <a href="#chapter-10" class="toc-item"><span class="toc-num">10</span><span class="toc-label">たったひとこと</span></a>
+        <a href="#chapter-11" class="toc-item"><span class="toc-num">11</span><span class="toc-label">混じり合う</span></a>
+        <a href="#chapter-12" class="toc-item"><span class="toc-num">12</span><span class="toc-label">笑う声たち</span></a>
+        <a href="#chapter-13" class="toc-item"><span class="toc-num">13</span><span class="toc-label">送信</span></a>
+        <a href="#chapter-14" class="toc-item"><span class="toc-num">14</span><span class="toc-label">ありふれた毎日ありがとう</span></a>
+        <a href="#chapter-15" class="toc-item"><span class="toc-num">15</span><span class="toc-label">ブルーモーメント</span></a>
+        <a href="#chapter-16" class="toc-item"><span class="toc-num">16</span><span class="toc-label">伝えたくなる</span></a>
+        <a href="#chapter-17" class="toc-item"><span class="toc-num">17</span><span class="toc-label">そのちいさな手</span></a>
+        <a href="#chapter-18" class="toc-item"><span class="toc-num">18</span><span class="toc-label">カーテンを開ける</span></a>
+        <a href="#chapter-19" class="toc-item"><span class="toc-num">19</span><span class="toc-label">あなたの好きが私の好きに</span></a>
+        <a href="#chapter-20" class="toc-item"><span class="toc-num">20</span><span class="toc-label">明日も歌おう</span></a>
+        <a href="#chapter-21" class="toc-item"><span class="toc-num">21</span><span class="toc-label">はなの耳</span></a>
+        <a href="#chapter-22" class="toc-item"><span class="toc-num">22</span><span class="toc-label">嵐の放送</span></a>
+        <a href="#chapter-23" class="toc-item"><span class="toc-num">23</span><span class="toc-label">歩き出す</span></a>
+        <a href="#chapter-24" class="toc-item"><span class="toc-num">24</span><span class="toc-label">大切なものを繋いでいく</span></a>
+        <a href="#chapter-25" class="toc-item"><span class="toc-num">25</span><span class="toc-label">Magic Hour</span></a>
+        <a href="#chapter-26" class="toc-item"><span class="toc-num">26</span><span class="toc-label">おばあちゃんに届ける</span></a>
+        <a href="#chapter-27" class="toc-item"><span class="toc-num">27</span><span class="toc-label">集まる声</span></a>
+        <a href="#chapter-28" class="toc-item"><span class="toc-num">28</span><span class="toc-label">海辺のステージ</span></a>
+        <a href="#chapter-29" class="toc-item"><span class="toc-num">29</span><span class="toc-label">響いてく</span></a>
+        <a href="#chapter-30" class="toc-item"><span class="toc-num">30</span><span class="toc-label">きっと思ったよりも素敵な日になる</span></a>
+  </div>
+
+  <div class="characters">
+    <h3>— 登場人物 —</h3>
+    <div class="char-grid">
+      <div class="char-card">
+        <div class="char-name">篠原 ゆみこ</div>
+        <div class="char-meta"><span>主人公 / FMラジオパーソナリティ・シンガーソングライター</span><span>26歳</span></div>
+        <div class="char-appearance">ふわふわのミディアムボブ、明るい茶色。毛先がはねている。
+丸い目で笑うと三日月型になる。日焼けした健康的な肌。
+放送中は白いブラウスにロングスカート、足元はスニーカー。
+右手首にミサンガ（リスナーの子供からの手作り）。
+ブースではヘッドフォンをかけ、マイクとピアノの間に座る。</div>
+        <div class="char-desc">明るくておおらか。泣き虫だが泣いた後すぐ笑う。
+リスナーのメッセージを「あなたのひとコマ」と呼んで大切に読む。
+料理好き（特にスープ）。自分の曲に自信がない。
+人の気持ちに敏感だが、自分の気持ちには鈍い。
+口癖は「今日もおつかれさま」。
+</div>
+      </div>
+      <div class="char-card">
+        <div class="char-name">海野 航太（うみの こうた）</div>
+        <div class="char-meta"><span>ラジオ局の音響エンジニア / ゆみこの幼なじみ</span><span>27歳</span></div>
+        <div class="char-appearance">日焼けした肌、短い茶色の髪。背が高い（182cm）。
+ラジオ局ではTシャツにカーゴパンツ。サングラスを頭に乗せている。
+ミキサー卓の前に座ると真剣な顔になる。</div>
+        <div class="char-desc">おおらかで鷹揚。ゆみこの番組の音を整える裏方。
+「ゆみちゃんの声は夕焼けの色に似てる」と言った。
+ゆみこに片想い中だが、マイクの向こう側で支えることを選んでいる。
+</div>
+      </div>
+      <div class="char-card">
+        <div class="char-name">白石 千鶴（しらいし ちづる）</div>
+        <div class="char-meta"><span>リスナー / 渋滞の中で聴いている会社員</span><span>38歳</span></div>
+        <div class="char-appearance">きちんとした黒髪のショートカット。細身。
+車の中ではスーツのジャケットを脱いでシャツ姿。
+運転席でハンドルを握りながらラジオを聴いている。
+表情が硬いが、ゆみこのラジオの時だけ少し緩む。</div>
+        <div class="char-desc">管理職。部下に厳しくしてしまう自分に疲れている。
+「やさしくできなかったり怒ってみたり」の毎日。
+娘の美羽（7歳）との時間が足りないことが心の棘。
+ラジオネーム「夕暮れてんとう虫」でメッセージを送り始める。
+</div>
+      </div>
+      <div class="char-card">
+        <div class="char-name">篠原 はな</div>
+        <div class="char-meta"><span>ゆみこの祖母 / 元歌手・最古のリスナー</span><span>78歳</span></div>
+        <div class="char-appearance">小柄でふくよか。白髪をきれいにまとめている。
+花柄の割烹着。目尻の皺が笑顔の証。
+最近少し耳が遠くなり、ラジオの音量を上げている。</div>
+        <div class="char-desc">ゆみこに歌を教えた人。「歌は風と一緒。届く人に届く」。
+ゆみこの番組を毎日聴いている最古のリスナー。
+ラジオネーム「さくらの母」。
+</div>
+      </div>
+      <div class="char-card">
+        <div class="char-name">翔太（しょうた）</div>
+        <div class="char-meta"><span>不登校の中学生 / 深夜にラジオの録音を聴いている</span><span>14歳</span></div>
+        <div class="char-appearance">やせ型。前髪が長く目を隠している。パーカーのフード。
+イヤフォンで世界を遮断している。部屋は暗い。</div>
+        <div class="char-desc">学校に行けない。理由は自分でもわからない。
+夜中にゆみこの番組のアーカイブを繰り返し聴いている。
+まだメッセージは送れない。でも「明日も笑おう」が頭から離れない。
+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <main>
+
+    <section class="chapter" id="chapter-1">
+      <div class="chapter-header">
+        <span class="chapter-number">第1章</span>
+        <h2 class="chapter-title">1秒ごと変わってく</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>春の午後、神奈川県の一端に広がる海辺の街。波しずくと塩素の香りが路地裏まで届き、日差しはまだ肌寒さを感じさせる柔らかな青を湛えていた。風に乗って遠くで鳴っているラッパの音が、アスファルトに溶けた甘い匂いと共に夕暮れへと導く。</p>
+
+        <p>篠原ゆみ子（26）は、古い雑居ビル3階にある地元FM「Wave 78.2」への道を歩いた。ブースのドアを開けると、まず目の前に広がるのはミキサー卓に囲まれた小部屋。海野航太（うみのこうた）が立ち上がり、ゆめ子へ微笑む。</p>
+
+        <p>「こんばんは、ゆみちゃん」</p>
+
+        <p>「こんばんは、おつかれさま」</p>
+        <p>彼女は肩甲骨まで届く茶色いミディアムボブを後ろに流し、白いブラウスの袖を通す。足元にはいつも通りのスニーカーが揺れている。</p>
+
+        <p>ヘッドフォンをかけると、外からは聞こえない音響機器のささやき声が耳に届く。彼女はゆっくりとした動作でマイクの前に腰掛けた。</p>
+        <p>「今からです」</p>
+
+        <p>窓枠には海辺の風景が流れ込んでくる。水平線が薄暗くなり始め、真新しい夕焼けが始まる瞬間を待つように静まり返っている。</p>
+
+        <p>「こんばんは、Magic Hourへようこそ」</p>
+        <p>その声がブース内に響き渡り、次の言葉とともに電波に乗る。</p>
+        <p>「今日もおつかれさま」</p>
+
+        <p>初夏の春空、オレンジ色から紫へと移ろう瞬間。窓ガラス越しにもはや夕暮れを感じさせる風景を眺めつつ、ゆみ子は指先に息を入れて鍵盤を叩き始める。</p>
+
+        <p>「今日は新曲をお届けしますね」</p>
+        <p>航太の声が響く。</p>
+        <p>その言葉と共に、静かな旋律が会議室からこぼれる。聴いてもいないのに、彼女の歌声とピアノは誰かの心に灯りをともすような気がする。</p>
+
+        <p>窓からの眺めにはまだ日差しが残っているように見える。でもそれはもう夕焼けの一時間が始まった証拠だ。</p>
+        <p>「マジックアワー」</p>
+        <p>ゆみ子が呟くと同時に、外から風の音だけが聞こえてくる。その瞬間を追って、ラジオは今日一日で最も美しい一時間を放送する。</p>
+
+        <p>「明日も笑おう」</p>
+
+        <p>最後に耳元にあるマイクへ口元近づけて語りかけた言葉が届くまでには時間がかかる。</p>
+        <p>でもそれが明日への準備になるような気がして、彼女は微笑んだ。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-2">
+      <div class="chapter-header">
+        <span class="chapter-number">第2章</span>
+        <h2 class="chapter-title">ポケットの宝物</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>春の暖かな風が街路を通り抜けていく。ラジオ局「Wave 78.2」というビルは、その波長に揺れていたかのように見えた。夕暮れ時は、空にはまだやわらかいピンク色が広がっていた。</p>
+
+        <p>篠原ゆみこは制服の白いブラウスをそっと整えると、海辺沿いにある放送ブースに向かった。その足元から聞こえてくる音楽は柔らかな旋律と共に心地よく響き渡る。春先だからか、遠くには海水浴客たちが楽しむ気配も感じられた。</p>
+
+        <p>「おつかれさま」</p>
+        <p>彼女の声がヘッドフォンを通して流れてきた瞬間、スタジオの空気が一変するように聞こえた。「Magic Hour ─ ゆみこのおつかれさまラジオ」という番組は、その日一日を締めくくる時間帯に訪れる人々にとって、特別な存在だった。</p>
+
+        <p>「そして今週も始まります。今日のテーマは『あなたのポケットの宝物』」</p>
+        <p>彼女の声が静かな波のように広がる中で、「夕暮れときんぼう虫」というリスナーからのメッセージが届いた。「帰り道に見た桜、赤と白を交差させた花びら。春だという気分になるんです」</p>
+
+        <p>「切り取ってみたら、ポケットの宝物ですね」</p>
+        <p>ゆみ子はそう言ってから、静かな微笑みと共に続けていく。</p>
+
+        <p>「次は『七色な絵』です」「それは何かわかりますか？そうです、これはうちの娘が描いてくれた似顔絵。赤い口紅と黒いアイラインを丁寧に色付けしたものがそこにある」</p>
+
+        <p>心地よい夕暮れ時の光の中で、放送は淡々と進行していく。「自販機のお釣り」、「部屋の隅から見つけてきた蝶の羽根」というメッセージも次々読み上げられる。そのそれぞれが小さな喜びや驚きを形にしているように思えた。</p>
+
+        <p>「あなたの今日の宝物、教えてくださいね」</p>
+
+        <p>放送は徐々に盛り上がりを見せる。「Magic Hour」が始まって二週目ということもあり、リスナーからの反応も増えてきたようだ。ゆみ子が話す声と共に音楽も浮かび上がっていく。</p>
+
+        <p>「今日は一日終わりました。ただ今から明日へ繋げるために、あなたの笑顔を忘れずに」</p>
+
+        <p>放送終了後、航太は静かな足取りでスタジオに入って来た。「今日の放送、よかったよ」と言った瞬間、彼女の心に安堵と感謝が広がった。</p>
+
+        <p>その夜、ゆみ子は自宅に戻るとすぐにポケットを探した。中にあったのは小さな紙細工のようなミサンガだった。リスナーから届いたもので、「あなたの手首にあるもの」を自分たちの力で作って送ってくれた子供からの贈り物だ。</p>
+
+        <p>「ありがとう」と呟きながら、ゆみ子はミサンガを取り出した。</p>
+        <p>「これをどうしますか？」と航太が優しく聞いてきた。彼女は微笑んで答えた。「手首に結びましょう」</p>
+
+        <p>二人の静かな動作の中で、ミサンガがゆるやかな夕暮れ色と共にゆめのような時間となりつつあった。</p>
+
+        <p>海辺には夜風が吹き出し始めている。</p>
+        <p>街路樹から聞こえる葉音。遠くで鳴っている鳥の声と交差するようにして、ラジオ放送という特別な時間がまた新たな一日を繋いでいく準備をするようだった。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-3">
+      <div class="chapter-header">
+        <span class="chapter-number">第3章</span>
+        <h2 class="chapter-title">茜に染まる鳥</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕焼けが街のアスファルトを柔らかく温め、ラジオ局のブースは静寂に包まれていた。外から聞こえる鳥たちのさえずりと微かなエンジン音だけが、ゆったりとした時間の流れを感じさせる。窓ガラスには茜色の空模様が映し出され、太陽の光線が薄れつつも依然として力強い。</p>
+
+        <p>「今夜はとても美しい夕焼けですね」と航太が静かに呟く。</p>
+
+        <p>「そうね……」ゆみこは笑顔で頷き、「鳥たちが群れて飛んでいくのが見えるわ。まるで手を振ってるみたい」</p>
+
+        <p>窓の外では、黒いシルエットが空を縦横無尽に滑る。茜色と紫が混ざり合い、夕暮れ時の帳引きが始まった。</p>
+
+        <p>「今日もおつかれさま」とゆみこはゆっくりとした口調で告げる。「あなたのメッセージをお届けします」</p>
+
+        <p>ラジオ局のブース内では、ミキサー卓の前に座る航太の指先が素早く動く。彼女の声とピアノの音を滑らかに編集する。</p>
+
+        <p>「ここから始まります」とゆみこは深呼吸して、「あなたのポケットの宝物。今日も届けていきます」</p>
+
+        <p>車窓ガラス越し、渋滞の中、白石千鶴はふとダイヤルを回した。この番組は彼女が初めて聴くものだった。</p>
+
+        <p>「今日は珍しく早めに出勤したわ」と彼女の言葉に重なるように、周囲の車輌からのエンジン音や運転手たちの話し声が聞こえる。「でも渋滞でここまできちゃった……」</p>
+
+        <p>ラジオから流れるゆみこの歌声と話しぶり。千鶴はハンドルを握る右手に力を込める。</p>
+
+        <p>「今日もおつかれさま」という言葉が、彼女の心のどこかに深い共鳴を生む。「あの人たちは何だろう……」</p>
+
+        <p>窓ガラスには夕焼けの色が鮮やかな赤と紫に変化する。風はまだ暖かい。</p>
+
+        <p>「今日も一日おつかれさまでした」とゆみこは語る。「私の番組、聴いてくれてありがとうございます」</p>
+
+        <p>千鶴の握り締めたハンドルから力が抜けていく。彼女は目を閉じた。この放送が、心地よい波動となって流れる。</p>
+
+        <p>「明日も笑おう」</p>
+        <p>「小さな手が大きな手につながるときがあるでしょう」</p>
+
+        <p>千鶴の視界には車窓越しに広がる茜色の空しか見えない。</p>
+        <p>ゆみこは微笑んで続けた。「何かを思い出すとき、誰かと一緒にいられる。それが今日一日をおつかれさまになる理由かもしれないね」</p>
+
+        <p>ラジオ局内では、ピアノと歌の旋律が優しく響き渡る。</p>
+
+        <p>車の中で千鶴もまた、「明日も笑おう」という言葉に耳を傾けた。</p>
+        <p>「小さな手が大きな手につながるときがあるでしょう」</p>
+        <p>彼女はその一瞬、心からそう感じていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-4">
+      <div class="chapter-header">
+        <span class="chapter-number">第4章</span>
+        <h2 class="chapter-title">あなたのひとコマ</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕焼けの空が街を見守る。オレンジ色と紫が混ざり合い、水平線に広がる染みのように溶けていく。ラジオ局「Wave 78.2」はその光の中で静かに息づいている。</p>
+
+        <p>ブース内ではゆみこが曲を演奏する。「あなたのひとコマ」というコーナーの時間だ。リスナーから送られてきたメッセージを読み、それを題材にして短い歌を作り上げる。ピアノと声が交差し合い、夕暮れの一時の魔法に包まれていく。</p>
+
+        <p>「最近会社で思うんです」と千鶴はラジオネーム「夕暮れてんとう虫」でメッセージを送ってきた。「忙しい日々の中で、たまには笑顔を見せる必要があるのかもしれない。明日も微笑んで生きようと思います」</p>
+
+        <p>音響卓に向かう航太が頭にサングラスを乗せていた。「ゆみちゃんの声は夕焼けと同じ色ですね」と彼は呟く。</p>
+
+        <p>ブース内では、メッセージが次々と受信されていく。「いつも心からありがとう」「疲れた時だけ聞く番組です」。その一つ一つにはそれぞれの日々があったはずだ。ゆみこは何度も「あなたのひとコマ」と繰り返す。</p>
+
+        <p>すると一通のメッセージに目を通し、思わず手が止まった。</p>
+        <p>「さくらの母と申します。孫がラジオで歌っています。昔私が教えた歌をもっと上手に歌いますね」</p>
+        <p>彼女の声は震えていた。「大丈夫」という言葉もまた余韻の中で消えうせる。</p>
+
+        <p>ガラス越しに航太が「大丈夫です」と微かに微笑む。ゆみこは何度でも深呼吸をする。</p>
+        <p>波のように揺らぐ心を静めるように、ピアノの音色は優しく広がっていく。</p>
+
+        <p>今日も一日が始まり、また終わりに向かう人々の小さな希望となりえた。「やさしさ」がただひとつの魔法なのだ。その光と影が重なり合いながら、夜へ移り変わる空のように「あなたの明日を照らすため」という言葉は届けるために存在する。</p>
+
+        <p>音楽は聴く人の心に新たな色を与える。</p>
+        <p>そしてそれは一瞬のマジックアワーから始まった。</p>
+
+        <p>ゆみこは何度も繰り返し、その声はまるで風のように微かだが確かに人々を包む。明日への道が少しだけ明るくなるように、小さな希望と光が灯される。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-5">
+      <div class="chapter-header">
+        <span class="chapter-number">第5章</span>
+        <h2 class="chapter-title">夕暮れてんとう虫</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>道が空を見上げる青い目。夕陽の色に染まった曇り切らぬ天井から、雨粒がかすかに降ってくる。千鶴の車窓にはその雨が細かな線となって垂れ落ちている。</p>
+
+        <p>渋滞は一向に緩和する気配がない。車の排ガスと街灯からの明かりで空気が混じり合って薄暗い。ラジオからはゆみこの歌声と共に「やさしくできなかったり怒ってみたり」という言葉が聞こえる。</p>
+
+        <p>千鶴は後部座席に置いた娘美羽の水筒を手にして、口元で軽く笑った。「今日はまた厳しかったな。」と自身への小さな声掛けをする。車の中にはラジオ音だけが静かに響き渡り、その言葉も少し消えてしまう。</p>
+
+        <p>「てんとう虫さんへお届けのメッセージです」</p>
+
+        <p>千鶴はエンジンを切るように、自分の心にも停めようとする。頬に浮かんだ汗粒を拭って窓ガラスにつけると、雨と一緒に流れていく。車外からは海から運ばれる潮風が優しく鼻先をくすぐる。</p>
+
+        <p>「今日もまた部下たちの前で感情が出てしまい、言葉を選んでしまった」</p>
+
+        <p>千鶴はミラーに映る自分を見つめながら言った。「やさしさと厳しさ。この両立って難しいね」と自問するように呟きを続ける。</p>
+
+        <p>「ハートが充電不足です」</p>
+
+        <p>ラジオネームの最後、その言葉と共に千鶴は窓を開けた。車外には小さなてんとう虫が飛んでいるのが見える。「明日も笑おう」この一文だけでも胸に響く声を聞いてからメッセージを読む。</p>
+
+        <p>「あなたのひとコマ」</p>
+
+        <p>ラジオの向こう側で、ゆみこはその言葉と共に窓を開けた。頭上には薄い雲が夕陽と絡んでいる。「てんとう虫さんへ」そう言って千鶴からのメッセージを読み上げる声は温かい。</p>
+
+        <p>「やさしくできなかったり怒ってみたり」</p>
+
+        <p>車内では、雨粒に濡れたガラスの向こうで小さなてんとう虫が止まった。その触手のような足先を広げている様子。「おつかれさまです」と千鶴は笑った。</p>
+
+        <p>「この一時間が充電器になれたら」</p>
+
+
+        <p>薄暗い空気の中、車窓には夜の訪れと共に星が一つ二つと浮かび始める。千鶴はエンジンを再起動した。「明日もまた出社するけど…」</p>
+
+        <p>ラジオから流れるピアノ音は彼女の心に静かな波紋を作り出す。</p>
+
+        <p>「今日もおつかれさま」</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-6">
+      <div class="chapter-header">
+        <span class="chapter-number">第6章</span>
+        <h2 class="chapter-title">魔法のコトバ</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕暮れの空が淡い橙色に染まり始め、遠くで鳩たちが日没に向けて落ち着いた囀りを響かせていた。篠原ゆみ子は自宅のピアノに向かい、新曲を作ろうとしていた。「Magic Hour」と名付けたこの楽譜にはまだ歌詞の一文字も書き込まれていない。メロディーだけなら頭の中で練習ができたが、言葉は出てこなかった。</p>
+
+        <p>「言葉を出すのは難しいね」</p>
+
+        <p>航太の声がリビングから響いてくる。いつも通り、彼はゆみ子の音楽製作に寄り添っている。二人は幼なじみで、そんな関係性もまた自然と支え合ってきた絆として存在している。</p>
+
+        <p>「でも、言葉ってのは歌を通じて何処かへ届けるんだよね」</p>
+
+        <p>航太がミキサー卓から離れるとゆみ子の横に来て、彼女の頭を軽く叩いた。「それが、あなたの言葉なんだよ。放送で話すときのように自然に出せばいいさ」</p>
+
+        <p>「でも……あれは私の言葉じゃないわ。リスナーの方々からのメッセージだもの」とゆみ子は言った。</p>
+
+        <p>航太が微苦笑し、「だからこそ、あなたを歌う種になるんだよね。あなたの心から生まれたものが、他の誰かの心に届く仕組みがある。それがラジオだ」</p>
+
+        <p>彼女の視線が浮遊するメロディーと交差したように、言葉は再び口の中へ戻った。「ありがとう……」と言葉を紡ぐ。</p>
+
+        <p>その瞬間からゆみ子の中で何かが動き始めた。音楽の持つ魔法のような力を、そして自らがそれを支えるリスナーたちとの繋がりを感じ取る。それは同時に彼女の心に新たな芽生えを与え、「Magic Hour」という曲にも希望を吹き込んだ。</p>
+
+        <p>「明日もおつかれさま」</p>
+
+        <p>ラジオ放送が切れる時間は近づいていた。しかし、その瞬間までもゆみ子の胸には新しい音楽への情熱と感謝があふれていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-7">
+      <div class="chapter-header">
+        <span class="chapter-number">第7章</span>
+        <h2 class="chapter-title">届かない声</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>暗闇が部屋の隅々まで広がっている。窓から差し込む月光だけが、薄い青灰色に染まった壁紙をぼんやりと照らす。夜中の二時半。静寂は重く垂れ込めるように感じられた。翔太はベッドで身じろぎもせずに横たわり、目を開けている。</p>
+
+        <p>部屋の隅には小さなスピーカーが置いてある。それから流れる音楽だけが、この薄暗い空間に微かな命を吹き込んでいた。「Magic Hour」——篠原ゆみ子の歌は、彼の心の中に静かだが力強い波紋を広げていた。</p>
+
+        <p>「明日も笑おう」</p>
+
+        <p>繰り返し聞いている言葉だ。しかし、その声が届く誰かへと翔太自身を導き出すことはまだできていない。スマホに書いたメッセージは消され、再び無から始まる連続の文字となる。「どうせ届かない」という考えが頭の中で渦巻いていた。</p>
+
+        <p>「送信」ボタンだけ光り続けているその画面を見つめると、指先には小さな汗粒が浮かぶ。言葉を形にしようとする気持ちと、それを諭す思い込みの間に身動きができなくなる。</p>
+
+        <p>部屋からは外は見えない。ただ窓ガラス一枚で隔てられた夜空だけがある。「マジックアワー」——それは翔太には存在しない時間帯だった。</p>
+
+        <p>「やる気出せ」</p>
+
+        <p>それでもスマホを握りしめ、微かな声が漏れる。でもそれが笑顔につながることはまだわからない。音楽は魔法ではないのかもしれない。だが彼の中に何か新しい動きを感じ始めているのが聞こえてくる。</p>
+
+        <p>スピーカーから流れてくるピアノの調べに耳を傾けながら、翔太はゆっくりと体を起こした。「明日も笑おう」——その言葉がまた新たな一日を繋げるきっかけになるかもしれない。空気が重い中で、わずかばかりの希望の種が芽生えている。</p>
+
+        <p>夜明けまでの時間はまだ長いが、それはただ待つだけでは終わらない時間がはじまっているのだ。</p>
+        <p>（次回へ続く）</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-8">
+      <div class="chapter-header">
+        <span class="chapter-number">第8章</span>
+        <h2 class="chapter-title">ハートが充電不足</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>空には薄い雲が浮かび、陽射しの角度から季節は春半ばだということがわかる。千鶴はアパートに戻ったばかりでまだ朝食前のコーヒーを淹れている香りに包まれていた。彼女自身もスーツジャケットではなくラフなカーディガン姿だった。</p>
+
+        <p>窓際にある小さなミラーの向こう、遠くの方へと空が淡い青から明るくなっていく様子は静かで優しい。今日一日が始まる瞬間を、街並みとともに見つめる千鶴には、その光景はほんの一端に過ぎない。</p>
+
+        <p>「朝会議のためスーツ着替えて」</p>
+
+        <p>彼女自身に言い聞かせるように自言自語を漏らすと、カーディガンからジャケットへ。鏡を見ずにスニーカーで足元を揃える。「美羽ちゃん、今度こそお迎えいけるかな」と心の中で呟きながら。</p>
+
+        <p>千鶴の一日が始まるのは家を出て車に乗り込むその時だ。</p>
+
+        <p>朝陽が薄く照らす駐車場。彼女の姿は無言で始動するクルマの中に閉じ込められる。「今日もおつかれさま」というラジオからの声に耳を傾ける余裕もなく、さっそく会社へと向かう。</p>
+
+        <p>「千鶴さん、今度のプロジェクト、どう進めます？」</p>
+
+        <p>いつものように上司から厳しい言葉が飛ぶ。一方的な提案に対しては、彼女自身も思わず眉間にしわを作りながら頷き返す。「やさしくできなかったり 怒ってみたり」を繰り返す日々。</p>
+
+        <p>会議室の窓越しに見える空は、昼間になると濃い青色へと移行する。その変わり目が見たくて車から降りたわけではない。それでも彼女の手元には、もう一つの「今日もおつかれさま」が必要だと感じる瞬間がある。「やさしくできなかったり 怒ってみたり」という日常を乗り越えるため。</p>
+
+        <p>しかし千鶴はいつものように黙々と仕事をこなす。昼食時にはコンビニ弁当、そして午後からは次に控えている会議への準備で再び忙しさの底へと沈んでいく。「明日も笑おう」</p>
+
+        <p>夜が訪れると彼女の一日は変わり始める。</p>
+
+        <p>「美羽ちゃん学校どうだった？」</p>
+
+        <p>千鶴の声が携帯電話を通じて伝わる。娘との短い会話を終え、今度は上司からのメールに返信する。「明日も笑おう」を心に刻みながら。</p>
+
+        <p>夕暮れ時になり彼女の車はいつもの渋滞へと足早に入り込んでいく。「どうせ届かない」という言葉が胸の奥で響く。それでも「Magic Hour」の時間になると、ラジオをつけてしまう。ハンドルに額を預けたまま、「ゆみちゃんのお声、今日もかすかな力になるから」</p>
+
+        <p>信号待ちの間、車の中は静寂だった。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-9">
+      <div class="chapter-header">
+        <span class="chapter-number">第9章</span>
+        <h2 class="chapter-title">山に帰ってく</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>梅雨の日。窓から見える空は厚い雲で覆われ、その隙間からは薄暗い光が漏れ出すだけだった。アパートの一室では篠原ゆみこがピアノに向かい合い、指先に微かな湿気を感じていた。</p>
+
+        <p>ラジオ局からの帰り道、彼女は黙々と歩き続ける。傘を差さず、濡れた路面の感触だけを感じながら。雨粒が肩越しに頬を撫でる。</p>
+
+        <p>「昨日も今日も 明日にも 私のこと 見つめていてくれているかい？」</p>
+        <p>ゆみこの声は静かだった。それは単なる問いではなく、自分自身への確認でもあった。</p>
+        <p>家の鍵を開けた音が室内に響く。靴を脱ぎながら、彼女は何度も深呼吸をする。</p>
+
+        <p>ピアノの前に座り、指先で黒と白の键盤を探る。春から夏へと季節は移ろい、ゆみこの心には雨雲のように重苦しいものが広がっていた。</p>
+        <p>「Magic Hour」の曲を弾くこと自体に躊躇を感じた。今日もまた、「あなたのメッセージ」という言葉だけが頭の中で鳴り響いていた。</p>
+
+        <p>音楽は彼女にとって、日々の不安や悩みを受け止めてくれる特別な場所だった。「でも どんな時も 気持ちを 光にすることができる」とゆみこ自身に言い聞かせながら。</p>
+        <p>しかし、今日ばかりは何故かその光が届かない。ピアノの音色は雨粒のように冷たく湿り気を取り戻すことはなかった。</p>
+
+        <p>手元を見ると、ミサンガの細い線がかすかな波紋を描いていた。「あなたのメッセージ」への答えを探しながら、彼女は電話を祖母のはなへと持ち上げた。</p>
+        <p>「はなさん。私の声 合わせて聴けている？」「明日も笑おう」などとは言えないような日だった。</p>
+
+        <p>「もちろん聴いているよ ちゃんとね 毎日の夕方 私の心に音楽が響く」というのはなさんの応答。「でも 山へ帰るときもあるでしょう。だからこそ 明日に昇ってくるんだから」</p>
+
+        <p>窓ガラスを叩く雨粒の音と、外で鳴き交わす鳥たちの声。</p>
+        <p>祖母は言葉を紡ぎながら、遠い空を見つめているように思えた。「山に帰ってく。でも明日また昇る」</p>
+        <p>ゆみこも窓の隙間から光り出す夕日を見る。</p>
+
+        <p>雨雲が薄らと晴れ間を作る中、その一筋の陽線は彼女の心を温めていた。</p>
+        <p>「あなたのメッセージ 私のこと 見つめていてくれているかい？」</p>
+        <p>最後にそう問いかけるようにピアノを弾き始める。指先から流れる音楽は少し明るさを取り戻し、雨粒の滴が止むような感じを与えた。</p>
+
+        <p>窓外には山々と空と海、それら全てで描かれた絵があった。</p>
+        <p>その風景の中で、ゆみこは何度も「笑おう」と自分自身に言い聞かせる。遠くから聴こえる波打ち際の音が彼女の心を揺さぶる。</p>
+
+        <p>雨粒が床へと落ちていく様子を眺めながら、「明日はまた新たな一日が始まる」それがゆみこの心の中で響き続ける。</p>
+        <p>ピアノの最後の一音が消えていく。そして、彼女は何度も深呼吸をする。</p>
+        <p>その声色には少しの明るさが含まれていた。</p>
+
+        <p>「あなたに繋がり 私のこと 明日へと 送っていく」</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-10">
+      <div class="chapter-header">
+        <span class="chapter-number">第10章</span>
+        <h2 class="chapter-title">たったひとこと</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕焼けの色が青みがかっていった頃、ラジオスタジオに静寂が訪れる。窓からは遠くで鳴り響くカラスの声と、街灯が夜になる前に点滅する光が見えるだけだった。</p>
+
+        <p>「おつかれさまラジオ」は17時を指し示す針と共に始まった。「ゆみこさん」という名前からメッセージが始まる。彼女の口元にはいつもの笑顔があったものの、目線の先には遠くに見えた海が揺れていた。</p>
+
+        <p>「今日もおつかれさま」</p>
+        <p>それは放送を開始する合図だった。</p>
+        <p>しかし、その次の言葉は待たずに止まった。「ゆみこさん。あなたの『今日もおつかれさま』で、今日も生きられました」というメッセージの後には、何秒かの沈黙があった。</p>
+
+        <p>雨上がりの湿度がスタジオを包んでいた。湿った空気が壁に張り付いているような感じだった。</p>
+        <p>静寂の中、彼女は自分の呼吸だけを感じていた。「ゆみこさん」と名前を呼ばれるたびに、その声と共に重苦しい沈黙が訪れていた。</p>
+
+        <p>ピアノの鍵盤から指先が離れた。手首には朝から夜まで触れているミサンガがかすかに温まっている。</p>
+        <p>音楽は彼女の感情を映し出す鏡だった。「ゆみこさん」からの言葉を受け取った後、5秒、10秒と、それ以上も過ぎた。</p>
+
+        <p>それでもピアノの蓋を開ける手が止まったままだった。航太からコーヒーが運ばれてくる。</p>
+        <p>その音だけが静けさを壊す。</p>
+        <p>「今日もおつかれさま」</p>
+        <p>彼女の声が再び聞こえたとき、それはただ静かに響いていた。</p>
+
+        <p>即興曲が始まる。メロディはゆっくりと揺れる潮の波のように広がった。「ゆみこさん」という言葉を胸に秘めたままで。</p>
+        <p>音だけが奏でられていた。</p>
+        <p>ピアノの声と共鳴するように、外からは遠くの海鳥たちが空へ向かって歌っていた。</p>
+
+        <p>「明日も笑おう」</p>
+        <p>それは最後のメッセージだった。彼女の口から洩れる言葉は誰にも届かないが、ただ静かな空間を満たすだけだった。</p>
+        <p>放送終了後、航太と目線を交わしたが何も言わない。「音」という共有された秘密があった。</p>
+
+        <p>夕暮れ時の光の色が遠ざかっていった。それでも彼女はその先にある明日へと向き合っていた。今日もおつかれさま。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-11">
+      <div class="chapter-header">
+        <span class="chapter-number">第11章</span>
+        <h2 class="chapter-title">混じり合う</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>海風が強い日曜の夕方。湘南エリアの街並みに、遠泳者のウェットスーツが光る。ラジオスタジオ内では、篠原ゆみこが一日の中で最も愛おしい時間を紡いでいた。</p>
+
+        <p>「はい、17時になりましたね。」</p>
+        <p>航太が入ってきた。「今からですね」と微笑む。</p>
+        <p>陽の下で練習するサーファーたちの声が窓ガラスを叩くように聞こえる。</p>
+
+        <p>「こんにちは。Wave 78.2です。今日も一日おつかれさま、ゆみこの『Magic Hour』をお届けします。」</p>
+
+        <p>ピアノの鍵盤に指先を乗せると、「はい」と小さく息が漏れる。</p>
+        <p>電話から流れてくるメッセージを口元で受け取る。</p>
+
+        <p>「今日から夏が始まりましたね。でも明日には梅雨に戻りますよ、皆さん。」</p>
+        <p>笑顔の後ろめたささえ感じる。「今日はどういった一日でしたか？」</p>
+
+        <p>熱帯魚の水槽のような夕焼けが空全体を覆う。</p>
+        <p>メッセージは様々な季節で届く。</p>
+
+        <p>「ゆみこさん、最近うちの子供たちとラジオ聞いています。」</p>
+        <p>「娘にピアノを教えてくださいって言われたので……。」</p>
+        <p>「おばあちゃんは元気です、ありがとうございます。」</p>
+
+        <p>ゆみこの体が暖かくなる。</p>
+        <p>青い空が次第に紫へ変化する。</p>
+
+        <p>「メッセージの中には悲しい声もありますね。でもそれが全部混ざり合った色——これこそ夕焼けの正解だと思います。」</p>
+        <p>ピアノを弾き始める。「私たちはこの一時間、それぞれのマジックアワーで過ごしていますが……」</p>
+
+        <p>車窓から見える遠くの方へと視線が泳ぐ。</p>
+        <p>「やさしくできなかったり 怒ってみたり」という千鶴。疲れていても笑顔を保つ。</p>
+
+        <p>「ゆみちゃんの歌、聞きたかったんです、翔太君」</p>
+        <p>黙々とした部屋でイヤフォンを握る少年は、今この瞬間にも誰かと繋がっている。</p>
+        <p>耳元に風の音が届くように。</p>
+
+        <p>「あなたの明日のために。」「笑おうね、たったひとことで歩けそうになるから。」</p>
+
+        <p>ラジオスタジオ内では、ゆみこ一人きりでピアノを弾いていた。「この曲は……」</p>
+        <p>微笑む。「あなたに繋がる魔法のコトバがあるんです。」「ありがとうございました、おつかれさまでした。明日も笑っていられるように、今日一日頑張った自分を褒めてあげてくださいね。」</p>
+
+        <p>窓ガラス越しに夜空を見つめながら。</p>
+        <p>青と紫と赤——すべてが混じり合う。</p>
+
+        <p>「明日はまた新しいマジックアワーが始まるんですから……」</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-12">
+      <div class="chapter-header">
+        <span class="chapter-number">第12章</span>
+        <h2 class="chapter-title">笑う声たち</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕暮れ時、海辺の小さな広場に光が降り注ぐ。風は暖かく、サーファーたちの声が遠くから聞こえてくる。ラジオ局「Wave 78.2」では特別な日を迎えている。「Magic Hour ─ ゆみこのおつかれさまラジオ」初となる公開録音イベントだ。</p>
+
+        <p>篠原ゆみ子は、ミサンガを右手首に巻き付けたままブースへと入る。海風が肌を撫で、青い空の下では日暮れ時特有の柔らかな光線が広場全体を包む。「今日は特別な一日よ」彼女は笑みを浮かべながら呟く。</p>
+
+        <p>会場には30人ほどのリスナーたちが集まっていた。赤ちゃんを抱いたお母さん、杖を持っている老人、制服の高校生——それぞれに似つかわしい表情と姿勢で座っている。「今日もおつかれさま」という言葉はここでも空気の中に溶け込んでいく。</p>
+
+        <p>ゆみ子の手元では静かに白いブラウスが風になびき、彼女の声と音楽は海辺を埋め尽くす。公開録音が始まった。「今日もおつかれさま」という言葉から始まり、次第に優しいピアノ演奏へ移る。</p>
+
+        <p>空には太陽の最後の一筋光が残り、その美しさがあたかも時間を見つめてるように思える。「笑う声たち」——彼女の歌詞は今日の特別な瞬間を表現しようと試みている。一人ひとりの顔を見て歌うことは新しい挑戦だった。</p>
+
+        <p>「皆さんのメッセージにいつも元気をもらっています」とゆみ子が話すと、会場から温かな拍手が響く。「あなたのひとコマ」——彼女はリスナーからの声を読み上げながら、「今日もおつかれさま」の曲と共に笑顔で挨拶する。</p>
+
+        <p>公開録音の中盤では全員が「明日も笑おう」というフレーズに合わせて歌い出した。それだけで空気が変化し、会場全体が一つになった。「笑う声たち」——それは誰かを温め、励まし、支える力となったのである。</p>
+
+        <p>ゆみ子のピアノ演奏は夕暮れと共に淡々と進む。海から吹き抜ける風と一緒にリスナーたちの心も穏やかな波紋のように揺らぐ。「明日に繋がる」「あなたに繋がる」——それが彼女の歌の核心であり、今日はその言葉を皆で共有した。</p>
+
+        <p>公開録音は静かに締めくくりを迎えようとする。会場には誰もが満足げな笑みを浮かべていた。「今日までおつかれさまでした」とゆみ子が語ると同時に、彼女の声と共に日暮れていく青い空を見上げる人々。</p>
+
+        <p>風はまだ温かいまま、サーフィンの音楽と海鳥たちの鳴き声が広場に響く。夜が始まるその瞬間には、笑う声たちが広場全体を包み込む。「明日も笑おう」——それは一日の終わりとともに新たな始まりへ繋げる魔法の一言となったのである。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-13">
+      <div class="chapter-header">
+        <span class="chapter-number">第13章</span>
+        <h2 class="chapter-title">送信</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕暮れ時、海辺の街が橙色に染まる。波打ち際に浮かぶ光り輝く泡々。ラジオスタジオでは静けさが支配している。ピアノの鍵盤はまだ手垢で暖かい。外から差し込む日差しが微細な塵を舞い上げる。</p>
+
+        <p>篠原ゆみ子は、今日も白いブラウスにロングスカート姿である。左手にはマイクのコードが絡まり、右手首にはミサンガが風に乗って揺れている。彼女の前に、小さな紙切れ一枚だけが置かれている。「学校に行けません。でもこの番組は聴けます」という短い文面。</p>
+
+        <p>海野航太は音響エンジニアとしての役割を果たすためにミキサー卓に座り、ヘッドフォンを耳元で揺らしている。彼女の声がクリアかつ安定した状態になるようにと微調整を行う。「ゆみちゃん」と呼ばれることが少ない。</p>
+
+        <p>「今日もおつかれさま」</p>
+        <p>ゆみ子はその紙切れを手のひらに預け、深呼吸をする。</p>
+        <p>静寂の中でもピリッとした空気が伝わってくる。彼女の声が響く。</p>
+        <p>「今日はね… いつも聴いてくれる皆さんへ。メッセージをお読みします」</p>
+
+        <p>音楽が優しく流れる中、ゆみ子はゆっくりと紙切れを手に取った。</p>
+
+        <p>光線の一部がカーテンから部屋の中へ差し込む。その一筋だけが翔太の目の前に映り込んでいた。彼の視覚は暗闇の中でただそれを追っている。</p>
+        <p>「学校に行けません」</p>
+        <p>文字通り、それが全てを言い当てていた。</p>
+        <p>しかし、光線の向こう側には何かが存在する。</p>
+        <p>それは薄く橙色に染まった窓枠からの差し込みだった。</p>
+
+        <p>音楽と声が溶け合い、混ざり合う。ただその一言だけ。</p>
+        <p>「でもこの番組は聴けます」</p>
+        <p>翔太の部屋から、遠い場所で鳩が囀っているのが聞こえる。</p>
+
+        <p>ゆみ子の目元には笑顔がある。しかしそれは口角を上げる形ではなく、まるで瞳から滲むような優しさである。</p>
+        <p>「学校に行けません」という言葉は重く、彼女の心に直接触れる。だが同時に、「でもこの番組は聴けます」それが力強く響き渡り、希望の光となりその場を照らす。</p>
+
+        <p>空には最後の一筋だけのオレンジ色が残っていた。</p>
+        <p>「聴いてくれてありがとうございます」というゆみ子からの返事が翔太へと届く。それは彼女から向けられた手のひらだったようにも思える。</p>
+
+        <p>放送室は静まり、ただ音楽のみが流れ続ける。</p>
+        <p>しかし、その一言が部屋を満たし始める。</p>
+        <p>「それだけで繋がっています」</p>
+        <p>風に乗って海辺に届き、空高くへと広がる。</p>
+
+        <p>翔太の手にはメッセージ紙片が残っている。それは彼にとって一つの宝物であり続けるだろう。「明日も笑おう」という言葉を胸に抱く。</p>
+        <p>窓枠から微かな光線が差し込み、室内は橙色の余韻に包まれる。</p>
+
+        <p>夕暮れ時の海辺で揺れる波と静寂。</p>
+        <p>ラジオ局内では、放送の終わりも始まりも同じように繋がっている。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-14">
+      <div class="chapter-header">
+        <span class="chapter-number">第14章</span>
+        <h2 class="chapter-title">ありふれた毎日ありがとう</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>黄昏時の街、空が茜色から紫へとゆっくりと移り変わる。秋の風が通りにそよぎ、枯れた葉っぱが軽やかに舞い上がる。ゆみこの部屋は夕闇が深まる中でも静けさを保っている。ブラウスにロングスカート姿で彼女はスタジオへと歩み出す。</p>
+
+        <p>「海野さん、メッセージの準備お願いします」と柔らかな声が響く。</p>
+        <p>航太はミキサー卓前に座り、ヘッドフォン越しにゆみこの声を聴きながら調整する。「ゆみちゃんの声も今日は優しいね」</p>
+        <p>「今日、特別なメッセージがあります。大切なものをお届けしたいんです」</p>
+
+        <p>ラジオ局スタジオ内では小さな紙切れが重なり合う音と、ページめくる静寂だけが響く。</p>
+
+        <p>「先日、娘と夕焼けを見ました。</p>
+        <p>娘が『きれいだね、ママ』と言いました」</p>
+        <p>声にわずかな緊張感がある。それは日常のなかでの一瞬だが、それがどれほど大きいかを語る。「ありふれた毎日の言葉なのに涙が出ました。今日もおつかれさま」</p>
+
+        <p>千鶴は自家用車の中でスイッチを入れたラジオから自分のメッセージが流れ出すのを感じた。</p>
+
+        <p>「ゆみさんの声が聞こえる」と彼女はつぶやく。「夕暮れてんとう虫」</p>
+        <p>娘と過ごした時間、その一言を思い出し涙があふれる。千鶴の顔に光る水滴は車内の窓ガラスにも反射する。</p>
+
+        <p>「明日もまた新たな一日が始まる。</p>
+        <p>何が起こっても、必ず何か一つくらい幸せなことがある筈」</p>
+
+        <p>青白い夜明けの月が昇り始める頃、千鶴は静かにエンジンを切った。車内ではゆみこから届いた暖かな言葉がまだ響いていた。</p>
+        <p>明日への小さな希望と背中合わせで。</p>
+
+        <p>「今日もおつかれさま」</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-15">
+      <div class="chapter-header">
+        <span class="chapter-number">第15章</span>
+        <h2 class="chapter-title">ブルーモーメント</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>秋の風が肌寒さを感じさせる夕暮れ。街角から聞こえる遠近法のように伸びる足音と、通り過ぎる車のエンジンノイズが交差する。波の静かなリズムと重なって響くのは、ラジオ局「Wave 78.2」で流れるゆみこの番組。一瞬の沈黙を挟んで、「Magic Hour ─ ゆみこのおつかれさまラジオ」というタイトルが耳に届いた。</p>
+
+        <p>窓ガラス一枚隔てた外は深緑色から青紫へと変わり、やがて夜明け前の闇が広がる。空の奥からは白鳥のように純粋な星々が現れ始める。室内には淡い灯りだけが点ともされ、ピアノ音が静かに響く。</p>
+
+        <p>「今日は……どんな一日だったでしょうか」</p>
+
+        <p>ゆみこの声は柔らかな風に乗って広がる。それは、誰もが疲れていても明日への一瞬の勇気をくれるように感じた。「もうすぐ秋から冬へと季節が移り変わる時期ですね」彼女は空を見上げて続け、「こんな時間帯には空の色に特別な名前があるんです」と呟いた。それが「ブルーモーメント」。</p>
+
+        <p>窓際で立ち尽くす航太の横顔を、ゆみこは遠巻きにするように眺めながら放送をする。彼は黙ってミキサー卓と向き合い、音量やボリュームを調節しながら何かを考えているようだった。「ココロの扉が開くみたいな色」と彼女が口にすると同時に、航太も静かに首肯する。</p>
+
+        <p>「今から聞きますね。今日のメッセージです」ふわりとした笑みと共にゆみこは言葉を続け、「この時間になると必ず届けられる手紙があります」「夕暮れてんとう虫さんからのものですね」</p>
+
+        <p>電話口で息継ぎしながら、千鶴もまた明日への一歩に踏切ろうと頷いている。彼女の日差しのない表情が空を見上げる。「やさしくできなかったり 怒ってみたり」という言葉は重く、しかし淡い希望を灯す。</p>
+
+        <p>航太は時折音響チェックをするため立ち上がり、窓際まで足を運ぶ。その姿を見てゆめこもまた彼の横顔を見つめる。「何を考えているのかな……」と静かに呟いた後、「私にも似たような経験があったんです」と語り始めた。</p>
+
+        <p>「ある日、空がこんな色だったときのことです」「海沿いを歩いている途中で、小さな子供たちが遊んでいるのを見つけました」</p>
+
+        <p>その瞬間から放送はゆめこの日々に浸る。彼女が言葉にするよりも先に出た航太の視線が交差する。「私たちもまた明日のためにここで働きます」彼女の声とピアノは青空と共に響き渡り、「どんな日でも、この時間だけは絶寐な一時だから」</p>
+
+        <p>最後に「そして、今日はこれで終わり」とゆみこは言葉を紡いだ。深く息を吸い込みながら航太を見つめる。「また明日ね」彼女が静かに微笑んだ。</p>
+
+        <p>窓の外は今夜も星空に向って深い青色へと沈んでいく。それはまるで未来への扉を開き、新たなる一歩を与えるような美しさだった。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-16">
+      <div class="chapter-header">
+        <span class="chapter-number">第16章</span>
+        <h2 class="chapter-title">伝えたくなる</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>秋の薄暮、空は青と紫が混じり合う独特な色合いをしている。風はまだ暑さを残しながらも、日が落ちるにつれて微かに冷たさを感じさせる。篠原ゆみこは祖母のはなの家に向かいながら、自分の胸の中にある内なる鼓動と共に歩んでいた。</p>
+
+        <p>家の前で立ち止まり深呼吸すると、まずは台所から流れる優しい香りを楽しむように鼻先を尖らせる。今日はひやごぼうのスープを作る予定だというはなからの誘いを受け、ゆみこはいつもの通りバスケットにレシピと必要な食材を持って訪ねて来た。</p>
+
+        <p>「ただいま〜」声をかけるなり台所へ入り込む。「おばあちゃん！」はなの顔が笑顔で迎えてくれた。「もう具を入れてるの？」</p>
+
+        <p>「そうよ、ゆみこちゃんも手伝って。ほら」手渡されたのは包丁と小刀だった。</p>
+
+        <p>二人それぞれに割り当てられた仕事があり、台所の中では素早く作業が始まる。「あんまり遅いとね、野菜が傷んでしまうのよね」とはなが言う通り、ゆみこも急いで具を切る。その間に「おばあちゃん…好きな人ができたかもしれない」そんなことを口にする。</p>
+
+        <p>はなの表情に一瞬迷いがあるように見えた。「あら。で、言ったの？」そう問い返すのはなだが、「言えるわけないよ」と苦笑しながら答えてゆみこもまた台所の中で切る音を聞きながら包丁を動かした。</p>
+
+        <p>「歌で言えばいいじゃない」はなが言うと笑顔になった。「あんたはそういう子でしょう。心の声を表現するのが上手いんだから」</p>
+
+        <p>スープの具材を順次鍋に放り込む。加熱された液体の中で野菜たちが踊るように揺れる光景を見つめながら、ゆみこは何度も深呼吸した。</p>
+
+        <p>「ねぇ、おばあちゃん…」言葉は出ない。「歌で言えばいい……って言うよね？」しかしまだそれを口にする勇気が持てずにいた。台所の中では静寂がしばらく流れた後、「そうだね」とはなが言ってくれた。ゆみこにとってそれはとても心地よい沈黙だった。</p>
+
+        <p>鍋の湯気が二人を包んでいく。「明日も笑おう」ふと聞こえてきた声に、ゆみこは思わず自分が放った言葉であることを思い出した。台所の中には優しい笑い声が響き渡り、その温かさがあたかもスープから溢れ出るように感じられた。</p>
+
+        <p>「どんな日でもね…この時間だけは絶対的な安らぎの時」そう呟くと同時に、ゆみこもまた包丁を置いた。鍋に見えるのは今にも沸騰しそうな液体で、その中には様々な色とりどりの野菜が踊っている。</p>
+
+        <p>台所の窓から差し込む夕暮れ時の光は薄紫色になりかけており、それはまるでゆみこの心の中を照らすように見えた。空気中の粒子が揺れる音だけが聞こえ、「どんな日でも」という言葉が何度か繰り返された。</p>
+
+        <p>「おばあちゃん…」再び声に出して呼びかける。「歌と言えばね、明日のラジオで伝えようかなと思う」そう口にするゆみこの顔は少し赤らんでいた。台所の中で二人の笑い声が交じる。「ねぇ、いいよね？」尋ねると「もちろんよ」と穏やかに答えてくれた。</p>
+
+        <p>鍋から立ち上る湯気が二人を包む中、「どんな日でも…」ゆみこはその言葉と共に微笑んだ。</p>
+        <p>それからはなとスープ作りの作業が続いた。それぞれが自分の役割を果たすことで台所の中には自然と調和が生まれ、静寂もまた大切にされた。</p>
+
+        <p>窓から見える薄暮の空気が触れると心地よく、「どんな日でも」という言葉はゆみこの胸の中で温かさと共に広がり続けているように感じられた。包丁を動かし続ける指先には小さな汗粒が浮かんでいた。</p>
+        <p>鍋の中では野菜たちと液体との交流があり、台所の一角にある時計からは時間だけがゆっくり進む音が聞こえてくる。</p>
+
+        <p>「どんな日でも…」ゆみ子は再びその言葉を口に出した。空気中にはスープ作りから発せられる甘い香りと共に暖かさも感じられた。</p>
+        <p>鍋の中の液体が徐々に温まり、表面からは白い湯気が立ち上る。</p>
+
+        <p>「ねぇ…今日はね」台所の中でゆみ子は静かな声で続けた。「好きになってくれたら伝えたいなって思う人がいるんだよ」</p>
+
+        <p>その言葉を聞いた時のはなの表情には驚きよりも優しさが溢れていた。それはまるで、包丁の刃先から滴り落ちる水滴のように自然と心に深く刻まれていく。</p>
+
+        <p>「ねぇ…歌と言えばね」ゆみ子はまたそう続ける。「明日のラジオでも伝えようかなって思う」</p>
+
+        <p>その言葉を聞いた時のはなの視線には温かさが感じられ、それは包丁で切られた野菜たちと同じように優しく揺らめく光の中で見えた。</p>
+
+        <p>台所の中では静寂も時には大切にされ、「どんな日でも」という言葉は自然と繰り返される中、ゆみ子の心は少し軽くなった。</p>
+        <p>鍋からは湯気が立ち上る一方で、スープ作りを続ける二人にはその暖かさがただ包むように感じられた。</p>
+
+        <p>台所から聞こえてくる音と香り、空気の中の粒々とした粒子を感じながら、「どんな日でも…」という言葉は自然に静寂と共に繰り返された。ゆみ子もまたそれを口に出し続けた。</p>
+        <p>鍋からは湯気が立ち上る一方で、二人が包丁を動かす音と香りの中で作り上げていくスープの暖かさを感じながら、「どんな日でも」という言葉は自然に繋がれた。</p>
+
+        <p>台所の中では静寂もまた大切にされ、空気中から聞こえてくる粒子たちとの触れ合いがある。「どんな日でも…」その声と共にゆみ子の心は少し軽くなり続けた。</p>
+        <p>鍋からは湯気が立ち上る一方で、二人が包丁を動かす音と香りの中で作り上げていくスープの暖かさを感じながら、「どんな日でも」という言葉は自然に繋がれ続けていた。</p>
+
+        <p>台所の中では静寂もまた大切にされ、「どんな日でも…」という声と共にゆみ子の心には暖かなものが触れ続けた。鍋からは湯気が立ち上る一方で、二人が包丁を動かす音と香りの中で作り上げていくスープの温もりを感じながら、「どんな日でも」という言葉は自然に繋がれ続けていた。</p>
+
+        <p>静寂の中から聞こえてくるのは台所でのスープ作りの音と共鳴するように、「どんな日でも…」という声と共にゆみ子の心には暖かなものが触れ続けた。</p>
+        <p>鍋からは湯気が立ち上る一方で、二人は包丁を動かす音と香りの中で作り上げていくスープの温もりを感じながら、「どんな日でも」という言葉は自然に繋がれ続けていた。</p>
+
+        <p>台所の中では静寂もまた大切にされ、「どんな日でも…」という声と共にゆみ子の心には暖かなものが触れ続けた。</p>
+        <p>鍋からは湯気が立ち上る一方で、二人は包丁を動かす音と香りの中で作り上げていくスープの温もりを感じながら、「どんな日でも」という言葉は自然に繋がれ続けていた。</p>
+
+        <p>静寂と共に聞こえてくるのは台所でのスープ作りの音と共鳴するように、「どんな日でも…」という声と共にゆみ子の心には暖かなものが触れ続けた。</p>
+        <p>鍋からは湯気が立ち上る一方で、二人は包丁を動かす音と香りの中で作り上げていくスープの温もりを感じながら、「どんな日でも」という言葉は自然に繋がれ続けていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-17">
+      <div class="chapter-header">
+        <span class="chapter-number">第17章</span>
+        <h2 class="chapter-title">そのちいさな手</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>春の薄暮、空にはまだ暖かな日光が滞留していた。校庭に設えられたステージで、美羽たち児童たちは静かに合唱曲を練習している。千鶴は娘との共通点を探すように、細長い指先を通して伝わる息づかいにも耳を傾けている。</p>
+
+        <p>「さあ、これから本番です」と教師が言った瞬間、子供達の声が一斉に上がり始める。その旋律に乗って風が吹き抜けていく。千鶴は思わず小さく微笑んだ。ゆみこと同じ歌声だと思った。彼女自身もかつて歌っていた曲だった。</p>
+
+        <p>美羽は自分のパートを全うしながら、ステージの端で見守る母親と目線を通す。「今日はお母さん来てくれたね」と心の中で呟きながら、美羽は喉に力を込める。千鶴の方を見つめると、いつもの表情とは違う柔らかな微笑みが返ってきた。</p>
+
+        <p>練習終了後、子供たちはクラスごとに解散していく。「ママ」。美羽の声が響く。振り向いた千鶴と目があったとき、彼女は娘の小さな手を握った。その瞬間、春の暖かさが二人を包み込んだ。</p>
+
+        <p>「今日は早退したんだね」と言った千鶴に、「うん」の一言だけで頷いて返す美羽。「ママ、来てくれてありがとう」そう言ってから、もう一度母親を見つめる。千鶴はその小さな手をぎゅっと握り直し、彼女を優しく抱き寄せた。</p>
+
+        <p>二人が歩み出す校舎の陰で、春日光と夕闇が交互に映しだす二つの影があった。「ママ」という言葉は消えた。だがそれは千鶴にとって大切な魔法の一瞬だった。</p>
+        <p>その薄暮の中で聞こえるのは、遠くから聞こえてくる海鳴りだけ。</p>
+
+        <p>空の色は、橙と紫の中間を描き出すように変化していた。放課後の町には人々が行き交い始めている時間帯だ。千鶴たち親子の後ろ姿もその流れの中で溶けていくかのように見えながら、実際は歩み続けている。</p>
+
+        <p>風景は徐々に夜色を濃め、遠くでは星屑のような光点が現れ始めた。「ママ」と美羽が口に出さなくても千鶴には心地よい音として届いている。それは日常のどの瞬間よりも美しいマジックアワーだった。</p>
+        <p>明日も笑おう</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-18">
+      <div class="chapter-header">
+        <span class="chapter-number">第18章</span>
+        <h2 class="chapter-title">カーテンを開ける</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>雨の匂いがまだ部屋の中に漂っている。窓際には薄暗さと湿り気があった。空気が重く、音もなく静寂に包まれているようだ。翔太はベッドから頭だけ起き上がったまま、天井を見つめている。</p>
+
+        <p>外では街灯の光が雨粒を弾き返し、小さな円形の星々を作っている。その一部だけが部屋の中に飛び込んできた。それは静かに音もなく揺れる水滴たちだった。風は微動だにしていないようだが、それでも遠くから聞こえる車のエンジン音と雨粒を打つ鼓膜のように細かい水音がある。</p>
+
+        <p>翔太は自分の心臓が静かなリズムで鳴っていることに気付いた。いつものような部屋での時間とは異なる雰囲気がそこにはある。窓際に座ったまま、ラジオの録音を聴く耳にイヤフォンをつけている。</p>
+
+        <p>「今日もおつかれさまです、翔太さん」</p>
+        <p>ゆみこの声が入ってきた瞬間、彼は思わず自分の手を見下ろした。そこには指先で小さくつままれたミサンガがあった。それは彼の心を静かな波動のように揺さぶり始める。</p>
+
+        <p>「1秒ごと変わっていく空の色見てますか？」</p>
+
+        <p>翔太はゆっくりと立ち上がり、カーテンへ向かった。手が触れると、布地の冷たさを感じる。初めて自分で開けようとする気持ちになっていたことへの驚きがあった。</p>
+        <p>彼は静かな息を吐いてから指先でカーテンを開いた。</p>
+
+        <p>オレンジ色だった空気が一瞬明るい光に変わった。それは部屋の中に入り込んで、そこにある全てのものを柔らかく包んだように見えた。雨粒がまだ落ちてきているのが分かるほど透明感のある光線。その中で翔太は自分が見えない何かと触れ合っているような感覚を抱いた。</p>
+
+        <p>「今日、カーテンを開けました」</p>
+
+        <p>翔太は窓辺に座りながら、自分の手の動きを見つめ続けた。それは静かしかし意味深な瞬間だった。</p>
+        <p>彼が初めて感じる日常の中で美しい魔法の時間のようなものがあったことに気付くと同時に、部屋の中にはただ一人でいる自分自身しか存在しなかった。</p>
+
+        <p>雨粒から反射してくる光が窓枠を通り抜けて壁一面に広がっている。それが夜明け前に見るような淡いオレンジ色である。</p>
+        <p>翔太はその光の下で自分の心音を感じたまま、静かに目を閉じた。それは彼自身にとって特別な時間だった。</p>
+
+        <p>「明日も笑おうね」</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-19">
+      <div class="chapter-header">
+        <span class="chapter-number">第19章</span>
+        <h2 class="chapter-title">あなたの好きが私の好きに</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕焼けの光が、窓枠にかすかな橙色のラインを描いていた。その先には小さな雲が赤みをおびて溶けていく様子があった。ラジオスタジオは静寂と薄暗さの中に落ち着きながらも、放送が始まるまでの緊張感が漂っていた。</p>
+
+        <p>篠原ゆみこはデスクに座り、白いブラウスの袖をまっすぐに伸ばしたまま深呼吸する。「あなたの好きが私の好きになる」という言葉が頭から離れない。今日のテーマは「リスナーからの好きなもの」特集だ。封筒いっぱいのメッセージカードを一枚ずつ丁寧に開いていく。</p>
+
+        <p>「焼きたてパンの匂い、猫の肉球、雨上がりの虹……どれも大切な思い出と繋がっているんだね」と言葉にするたびに、ゆみこは口元に自然な微笑を取り戻す。放送開始を告げるラズベリー色のメーター針が音と共に動いた。</p>
+
+        <p>「こんにちは、みんなおつかれさまです」</p>
+
+        <p>波長78.2MHzに乗せられる声は、微かながらも揺らぐ夕焼けと同調するかのように柔軟に響き渡る。その一方で、スタジオ外では日常の喧騒がまだ続いている。</p>
+
+        <p>「母の味噌汁を思い出しました」というメッセージから、ゆみこは特に長く息を止めていた。「いつものことだけど…今日もあなたの声が届きました」</p>
+
+        <p>そんなリスナーからの言葉に胸が熱くなる。彼女たちは遠い場所でそれぞれ異なる時間を過ごしながら、この時間だけは一緒だ。</p>
+
+        <p>「音楽と一緒に」というメッセージの後には少し間を空け、「今日もおつかれさま」の一節と深呼吸のタイミングを見極める。「明日へ繋げられる何かを見つけられますように」</p>
+
+        <p>航太がデジタルミキサーから顔を出し、小さく頷いてゆみこを見る。その視線はいつものようでどこか違う。放送中もずっと音響設備とにらめっこする彼の姿に変わりはない。</p>
+
+        <p>「今日の放送で12回笑ったよ」と航太が言った。「数えてたの？」と聞き返すと、航太はサングラスを頭に乗せ、「いつも数えてる」。その言葉と共に、ゆみこはじんわりとした気分になる。</p>
+
+        <p>音響ブースから外に出てきた彼女を見ると、海野航太もまた何かを思い出すような顔で微笑んだ。「笑い声が似合う」と言った。</p>
+
+        <p>「ありがとう…いつも支えてくれて」</p>
+
+        <p>二人の視線は静かな夕闇の中で交差する。その瞬間には言葉よりも多くの意味があった。空からは徐々に星が見えてきた。波長78.2MHzを介して、誰かにとって大切な一時間が始まる。</p>
+
+        <p>スタジオ内のカウンターグラフ針は再び静止し、最後の余韻とともに日付が変わる瞬間を迎える。「明日も笑おう」</p>
+        <p>ゆみこがそうつぶやくと同時に、海野航太は小さく頷いた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-20">
+      <div class="chapter-header">
+        <span class="chapter-number">第20章</span>
+        <h2 class="chapter-title">明日も歌おう</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>春の夕暮れ、空は薄桃色に染まり始めていた。街路樹からかすかな葉音が聞こえ、遠方で鳴るカエルの声と交差する。車窓越しに見えたのは、いつもと同じ景色だけだった。</p>
+
+        <p>篠原ゆみこのラジオ番組「Magic Hour ─ ゆみこのおつかれさまラジオ」は今日も17時に始まる。波を含んだ海風が吹き抜けてくるブースの中では、静寂が流れていた。「準備ができたら教えてね」と音響エンジニアの航太に告げてから、ゆみこは机に向かう。</p>
+
+        <p>手元にあるのはリスナーからのメッセージカードと曲「明日も歌おう」の譜面。今日で番組が始まって半年になるという感慨深い日だ。「あなたに繋がる 明日に繋がる」というフレーズを何度も口の中で反芻する。それは心地よく、同時に少し切なさを感じた。</p>
+
+        <p>「ゆみちゃん」</p>
+
+        <p>航太の声が響くとすぐに顔を上げた。彼は手元でミキサー卓に触れている。「準備できてる？」</p>
+
+        <p>うなずきながら、「今日はね」と言ってからページを開いた。「歌詞の一部だけ読みますか？」そう問いかけ、小さな声ではじめて「明日も歌おう」のサビを口にする。</p>
+
+        <p>「ほらきこえるよ 同じ時の中 明日に繋がる あなたに繋がる」</p>
+
+        <p>音響卓を見つめている航太。「曲はまだ完成していないんだね」と静かに言う。彼はいつも通りで、言葉の端々から温かい心遣いを感じた。</p>
+
+        <p>「歌詞を書くことが楽しいよ」微笑んで続けるゆみこだったが、声には少し自信がないようにも聞こえた。航太は何事もないかのように頷き、「今日一日だけ特別な番組にする？」と提案する。「もちろん」</p>
+
+        <p>そしてその瞬間から放送が始まった。</p>
+
+        <p>「こんばんは 春のMagic Hourの時間です 今日は何よりも温かい春の風を感じますね 篠原ゆみこ、ここにいます」と言葉を紡ぎながら、メッセージカードを開いていく。そこにはリスナーからの様々な声が綴られており、「どんな日でも笑って過ごそう」「明日もまた一緒に」など、誰かから届いた温かい言葉だ。</p>
+
+        <p>それらの言葉を読み上げる度に、ゆみこの顔からは緩やかな微笑みがあふれてくる。「春になったね」と呟きながら、窓辺から外を見た。その光景はまるで自分が曲の中で紡いできた世界のように見えた。</p>
+
+        <p>「今日は特別な歌をお届けします。まだ完成していないけど ここまでの出来栄えを皆さんに聞かせてみます」</p>
+
+        <p>そう言ってピアノの前に座り、指先が鍵盤に触れた。「ほらきこえるよ 同じ時の中 明日に繋がる」と歌い始めると、その声は静寂の中に溶け込んだ。それがリスナーへの贈り物のように響いていた。</p>
+
+        <p>一方で、車の中で聴いている白石千鶴の視線は窓外に向けられていた。「明日もまた一緒に」「春になったね」そう呟きながら、初めて小さな声で歌い始める。「ほらきこえるよ 同じ時の中 明日に繋がる あなたに繋がる」</p>
+
+        <p>空気が止まった瞬間があった。彼女の表情は複雑だったが、「明日も笑おう」と自分自身に向かって呟くと、静かな微笑みを浮かべた。「明日になるまで 繋げて」</p>
+
+        <p>そしてその日が幕を閉じようとした頃、街路樹の葉音と共に春らしい微風が吹き抜けてきた。遠くで鳴るカエルの声は夜空に響いていた。</p>
+
+        <p>「今日もおつかれさまでした」</p>
+        <p>そんな言葉とともに放送終了。「Magic Hour」というラジオ番組は、ゆみこの心と千鶴の車窓を通り抜けていった。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-21">
+      <div class="chapter-header">
+        <span class="chapter-number">第21章</span>
+        <h2 class="chapter-title">はなの耳</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>冬の風が冷たく、街には雪かきをする人々の声と車の音だけが響いていた。ラジオ局「Wave 78.2」では、篠原ゆみこの番組が始まる夕暮れの一時間が近づく。その日の放送は特別な日となる予定だった。</p>
+
+        <p>寒い夜に電球明かりを灯すように、街が暖かさと安らぎを感じる時間帯である。「Magic Hour」のスタジオ内では、ゆみこが白いブラウスにロングスカート姿で準備をしている。その日は半年記念として特別な曲「明日も歌おう」を披露する予定だった。</p>
+
+        <p>「今日こそ、ちゃんとするね」と自分の鏡を見て笑顔を見せる。「だって… 今日は祖母のためだから」</p>
+
+        <p>ゆみこが放送室に入ると同時に海野航太がミキサー卓に座った。彼はいつもと変わらず淡々とした表情で音響チェックを始める。</p>
+
+        <p>「準備できた？」「うん、できてるよ」と短く答える。「風は見えなくても花が揺れるように… 聞こえなくても届けられるさ」</p>
+
+        <p>言葉の裏側に込められた暖かな想い。それを支える航太の仕草にはいつも通りの落ち着きがあった。</p>
+
+        <p>「ゆみちゃん、大丈夫？」「うん、なんだかうまくいく気がする」と明るく答えたが、内面では不安な自分がいた。「何だか今日は上手く歌えないような…」</p>
+
+        <p>放送室は静寂の中、時計針が音もなく進んでいく。そして17時にラジオのボタンを押した瞬間、「Magic Hour」が始まった。</p>
+
+        <p>「こんばんは、ゆみこのおつかれさまラジオです」と彼女の声がスタジオに響く。「今日は6ヶ月記念で、特別な曲をお届けします」</p>
+
+        <p>ゆみこがピアノの前に座ると指先を弾き始め、「明日も歌おう」の旋律が始まる。しかし最初の一音から不安感と戸惑いを感じた。</p>
+
+        <p>「今日は… 好奇心だけではなくて、想いを込めて歌います」と言葉を続ける。「大好きな人達へ」</p>
+
+        <p>だがその声は揺らぎつつあった。「聴こえにくいって言ってるけど… わかるよね？」「そうだよ。音量が大きすぎるから」航太からの反応に思わず顔を上げた。</p>
+
+        <p>「でも、今日は祖母のために歌います」と再び笑顔を作る。「だって彼女は一番聴いてほしい人だから」</p>
+
+        <p>その言葉と同時に思い出したのは幼い頃の日々。祖母が歌ってくれた歌や一緒に過ごす時間。そしていつか自分もゆく道を選び、それを支えてくれる大切な存在。</p>
+
+        <p>「風は見えなくても花が揺れるように…」「そうだよ」と航太からの返事。「聞こえなくて伝わらないことなんてないさ」</p>
+
+        <p>彼の言葉に心地よい暖かさを感じた。確かに届けることが困難でも、想いを込めて歌えばそれが通じる。</p>
+
+        <p>「風は見えなくても花が揺れるように… 聞こえにくい祖母へ」と声を震わせながら歌う。「だからこそ今日の曲を」</p>
+
+        <p>その瞬間、ゆみこの目から涙があふれた。彼女は自分の想いと不安を込めて歌った。</p>
+
+        <p>「聞こえない人もいるけど、風が届くなら… 音楽も届けられるさ」その言葉とともに放送終了となった。</p>
+
+        <p>スタジオの明かりが消え、ゆみこは何度か深呼吸した。「今日もおつかれさま」</p>
+
+        <p>海野航太はそれを静かに見つめ、「風は見えなくても花が揺れるように… 君の歌には届くよ」と小さな声で呟いた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-22">
+      <div class="chapter-header">
+        <span class="chapter-number">第22章</span>
+        <h2 class="chapter-title">嵐の放送</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>台風が街の上空を横切る音。風と雨に覆われた窓ガラスから、薄暗い青みがかすかに見えるだけだった。電気が消えた事務所は、まるで影絵のように物々しい静けさに包まれていた。</p>
+
+        <p>「やべえ……停電だよ」航太が叫ぶ声と同時に、ミキサー卓のランプたちも次々に息を潜めた。それでもゆみこだけは微かにピアノの前に座っていた。「どうしよう……？」彼女の目には不安と絶望しか映らなかった。</p>
+
+        <p>「大丈夫だよ、ゆみちゃん」航太が薄暗い中で手探りしながら歩き出す。「バックアップ電源を繋ぐから。でもその間だけはピアノのマイクだけで行け」</p>
+
+        <p>雨粒たちは窓ガラスに打ちつけ、それが地面や壁とぶつかる音が耳を突くように響いた。風とともに流れる葉の擦れ合う声。屋外では台風の唸りと共に、建物自体も揺れていた。</p>
+
+        <p>「……大丈夫」ゆみ子は息を吐き出し、ピアノを開けた。「今から一時間だけ、ただ弾くよ」</p>
+
+        <p>それだけ告げると彼女は何事もなく手に触れた鍵盤の音色を奏で始めた。その響きが静寂と嵐の中へ溶けていく。</p>
+
+        <p>「ゆみちゃん……」航太は後ろ姿を見つめながら、電源コードを探した。「大丈夫だよ」</p>
+
+        <p>雨粒たちは窓ガラスに打ちつけられ、「ピタ」と音を立てて地面やアスファルトの上に広がる。風も一緒に揺れる建物と一緒にリズムを作り出す。</p>
+
+        <p>「……」ゆみ子はただ鍵盤と向き合っていた。「今日もおつかれさま」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、その音が電源コードを探す航太の動きに合わせて繰り返される。彼女の声ではなくピアノだけの放送が始まった。</p>
+
+        <p>「大丈夫だよ……」航太は机から紙袋を取り出し、バックアップバッテリーを探した。「絶対に」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、その音が停電による不安と戦う彼女の心と共に鳴り響く。ピアノの旋律だけが微かではあるが放送局の中から聞こえてくる。</p>
+
+        <p>「……」ゆみ子はただ鍵盤に触れていた。「大丈夫」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、その音が彼女の指先と心の動きと共に鳴り響く。台風も一緒に奏でるピアノの一曲となり始めた。</p>
+
+        <p>「……」航太はバックアップバッテリーを見つけ出し、それを繋ぎ始める。「絶寐い」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、その音が彼女の心と鼓動と共に鳴り響く。ピアノの旋律だけが静寂の中から聞こえてくる。</p>
+
+        <p>「……」ゆみ子はただ鍵盤に触れていた。「大丈夫だよ」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、その音が彼女の心と鼓動と共に鳴り響く。台風も一緒に奏でるピアノの一曲となり始めた。</p>
+
+        <p>「……」航太は何度繋いでも切れてしまうコードを見つめ、「大丈夫だよ」とだけ呟いた。「絶寐い」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、その音が彼女の心と鼓動と共に鳴り響く。ピアノの旋律だけが静寂の中から聞こえてくる。</p>
+
+        <p>「……」ゆみ子はただ鍵盤に触れていた。「ありがとう」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、「バチッ」と雷も一緒に鳴り響く。台風と一緒になり始めたピアノの一曲が、まるで彼女の心と共に奏でられる。</p>
+
+        <p>「……」航太は何度繋いでも切れてしまうコードを見つめ、「絶寐いよ」だけ呟いた。「大丈夫」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、「バチッ」と雷も一緒に鳴り響く。ピアノの旋律と嵐の中から聞こえてくる音が一つになった。</p>
+
+        <p>「……」ゆみ子はただ鍵盤に触れていた。「ありがとう、航太」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、「バチッ」と雷も一緒に鳴り響く。台風と共に奏でるピアノの一曲が彼女の心と鼓動と共に聞こえてくる。</p>
+
+        <p>「……」航太は何度繋いでも切れてしまうコードを見つめ、「絶寐いよ、ゆみちゃん」とだけ呟いた。「大丈夫」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、「バチッ」と雷も一緒に鳴り響く。ピアノの旋律と嵐の中から聞こえてくる音が一つになり始めた。</p>
+
+        <p>「……」ゆみ子はただ鍵盤に触れていた。「ありがとう、航太」</p>
+
+        <p>雨粒たちは窓ガラスを叩き、「バチッ」と雷も一緒に鳴り響く。台風と共に奏でるピアノの一曲と彼女の心が一つになり始めた。</p>
+
+        <p>「……」航太は何度繋いでも切れてしまうコードを見つめ、「絶寐いよ、ゆみちゃん」とだけ呟き、「大丈夫だよ」</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-23">
+      <div class="chapter-header">
+        <span class="chapter-number">第23章</span>
+        <h2 class="chapter-title">歩き出す</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕焼けの光が、街並みに柔らかなオレンジ色のヴェールを纏わせる。風に乗って通り過ぎる車のエンジン音とブレーキ音が遠くで響き、いつもの静寂とは異なる落ち着いた空気感が漂っている。翔太は窓から外を見つめながら深呼吸した。</p>
+
+        <p>「今日は出よう」</p>
+
+        <p>部屋を出て玄関の鍵を開け、靴に足を入れる。冷たいコンクリート地の階段を下りていくと、耳元でピアノの調べが響く。「Magic Hour ─ ゆみこのおつかれさまラジオ」。いつもより少し早めに到着した番組は今日も静かな波動と共に進行中。</p>
+
+        <p>翔太は歩き出す。音楽が薄暮の中を包んでいく。足元のアスファルトはまだ暖かく、靴底と路面の触れ合う感触が心地よい。背後から聞こえるラジオからの歌声に導かれながら、手にはヘッドフォンで世界を隔てていた。</p>
+
+        <p>「今日もおつかれさま」</p>
+
+        <p>羽音のように軽い声色が風に乗って翔太を包み込む。空は濃紺と赤の混じった絶妙なグラデーションへ移り変わり始めている。視界に広がる景色は、これまでとは異なる鮮やかさを持っている。</p>
+
+        <p>「今日、外に出ました」</p>
+
+        <p>耳元から声が漏れるようにつぶやく。「ゆみこさんには伝えたい」</p>
+        <p>ヘッドフォンを取って青空に向けて顔を上げると、太陽の最後の光が雲間からのぞき、その一瞬だけ眩いまでの輝きを見せる。</p>
+
+        <p>「空がきれいです」</p>
+
+        <p>手探りでポケットを探る。メッセージはいつでも送れる準備ができているのに、彼にはまだ言葉にする勇気が足りない。それでも今日は違う何かがある。</p>
+
+        <p>携帯電話の画面をタップする指先が震える。「夕暮れてんとう虫」という名前をつけたアカウントを見つけると、文字入力欄に「今日、外に出ました。空がきれいです」の一文だけ入力し、送信ボタンを押した。</p>
+
+        <p>その瞬間から翔太はただただ待った。</p>
+        <p>やがてラジオ局の放送ブースでは、音響エンジニアの海野航太とパーソナリティの篠原ゆみこが交互に話をしている。停電で遅れた番組を急いで進めている最中でも、二人は互いの言葉一つ一つに対して優しさを欠かさない。</p>
+
+        <p>「あ、翔ちゃんさんだ！」</p>
+
+        <p>航太の声と共に画面に表示されたメッセージを見たゆみこが思わず口元を歪めた。いつも以上に感極まる何かがあった。</p>
+        <p>「すごいですね……外に出られただなんて」</p>
+        <p>彼女は少し震える息と一緒に言葉を紡ぐ。「翔ちゃんさん、本当に素敵です」</p>
+
+        <p>そしてそれは、航太の心にも深い影響を与えた。手足がピリッと熱くなるような気分になった。「やった！ やっぱりゆみちゃんのことだよな」</p>
+
+        <p>そんな二人に届くように、ラジオから「Magic Hour」のテーマ曲が始まる。</p>
+        <p>夕暮れの一時間は終わろうとするばかりだが、それでも尚なお翔太にとってそれは心地よい風景であった。彼がこれまで封じ込めてきた感情を解放し始める一瞬でもあった。</p>
+
+        <p>コンクリートに馴染んだ影が長く伸びている。その中で一人歩いている少年の姿があった。</p>
+        <p>手元にある携帯電話を見つめ、少し微笑む。「明日も笑おう」</p>
+        <p>頭の中は歌詞だけが響き渡る。それは彼を前へと導いてくれた。</p>
+
+        <p>音楽と共に、翔太はまた一日が始まる準備をするのであった。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-24">
+      <div class="chapter-header">
+        <span class="chapter-number">第24章</span>
+        <h2 class="chapter-title">大切なものを繋いでいく</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>クリスマスイブの夕暮れ。空には薄い橙色が浮かび、遠くで街灯りが点じ始める。ラジオから流れる音楽が、静かな室内に柔らかい光を放つように広がっていく。</p>
+
+        <p>篠原家では、白石千鶴と娘の美羽が並んでソファに座っていた。「Magic Hour」は今日も特別な一日となっている。クリスマスイブだけの「大切な人へのメッセージ」という特集番組だ。家の窓からは外でイルミネーションを楽しむ人々の声や、遠くで鳴り響くカウントダウンが始まる音楽が聞こえる。</p>
+
+        <p>千鶴は耳元にラジオを持ってきて、美羽と一緒にゆみこの歌声と会話を受け止める。「ママも」という言葉が小さな口から漏れる。千鶴の表情がほんの一瞬だけ柔らかくなる。彼女たち二人にとって、「Magic Hour」は特別な時間である。</p>
+
+        <p>「今日の放送では、リスナーの方々へ大切な人のためにメッセージを届けていただくコーナーを開催します」とゆみこがラジオから語りかける。「みなさんの声がきっと誰かの心に響きますように」</p>
+
+        <p>千鶴と美羽は互いの目を見つめ合う。母娘二人で、それぞれ内心で思いを巡らせる。</p>
+
+        <p>「ママ、このお姉ちゃんの歌好き」と小さな手が母親の衣装の袖を軽く引いた。「私もいつかこうなりたいな」</p>
+        <p>千鶴は静かな笑みと共に頷き、「美羽もそうなるよ。あなたならできるから」と優しく語りかける。</p>
+
+        <p>ラジオの中ではゆみこの声とピアノが響いている。</p>
+        <p>「皆さんの耳を借りて、私からのメッセージをお伝えします」</p>
+        <p>千鶴の心に波紋が広がる。「さくらの母へ。いつも私の歌を聴いてくれてありがとう」</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-25">
+      <div class="chapter-header">
+        <span class="chapter-number">第25章</span>
+        <h2 class="chapter-title">Magic Hour</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>春の暖かな日差しの中、篠原家の一室では静けさが広がっていた。窓ガラスに反射する薄い青と柔らかい陽光が部屋全体を包み込むように色づけていた。ピアノから微かだが心地よい音楽の調べが聞こえてくる。それはゆめかな、夢のように美しい時間だった。</p>
+
+        <p>篠原家のリビングでは、ふわふわとした茶髪のかつらを後ろに被ったゆみこと、その横で黙々とミキサー卓につく海野航太の姿があった。薄明るい室内は暖かな夕暮れが徐々に訪れる準備をしているかのように静寂だった。</p>
+
+        <p>「ねぇ、こうたくん？」</p>
+
+        <p>微弱な音色を聴きながら、ゆみこは不安そうに呼びかける。「Magic Hour」のために書き上げた曲の完成版を彼に聞きたかった。航太は耳からヘッドフォンを取り外し、頷いて応えた。</p>
+
+        <p>「今すぐか？」</p>
+
+        <p>「うん、そうだよ」</p>
+
+        <p>それだけ言って、ゆみこは立ち上がり、手元にある紙に書いた歌詞とメロディを見つめながら深呼吸した。春の風が窓から室内へと入り込むように、彼女の心もまた徐々に晴れやかさを帯びていく。</p>
+
+        <p>「Magic Hour」への想いは強い光となってゆみこの中で息づいていた。「明日に繋がる あなたに繫がる」という言葉。それはリスナーのメッセージを通じて生まれた歌だった。毎日の放送で紹介される声たち、それが今日もまた新たな曲となり春を告げる。</p>
+
+        <p>「聴いてみてほしいんだ」</p>
+
+        <p>彼女の手元にはこれまでの日々に捧げてきた思いが詰まった一冊があった。「1秒ごと変わっていく空の色彩 切り取ってみたら ポケットの宝物」。歌詞は淡い風と共に部屋を満たす。</p>
+
+        <p>航太はミキサー卓から立ち上がり、ゆめかな、夢の中のような音色へと耳を傾ける。「明日に繋がる あなたに繫がる」「きっと思ったよりも素敵な日になる」という言葉が彼の心にも入り込んでいった。それはただ美しいだけではなく、人々の希望や感情そのものが詰まった曲だった。</p>
+
+        <p>「完璧だよ」</p>
+
+        <p>航太は目を赤くしてそう言った。ピアノからの音色と歌詞が重なり合う。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-26">
+      <div class="chapter-header">
+        <span class="chapter-number">第26章</span>
+        <h2 class="chapter-title">おばあちゃんに届ける</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>秋の晴れた日、神奈川県湘南エリアの一軒家。篠原家のリビングに暖かな陽光が差し込んでいた。窓から見える青空には白い雲が浮かび、その隙間からは金色と赤色を混ぜたような夕焼けの余韻が覗いていた。部屋は静寂の中に包まれ、時折風が葉っぱを揺らす音だけが聞こえる。</p>
+
+        <p>篠原ゆみ子（26）は白いブラウスに茶色いミディアムボブヘアの毛先が浮かび上がる様で、キーボードの前に座っていた。その隣には78歳という年齢を感じさせないほど元気な篠原はな（祖母）もまた、ゆみ子と二人きりだった。</p>
+
+        <p>「おばあちゃん」</p>
+        <p>ゆみ子が振り返ると、後ろから聞こえるのははなからの声。彼女自身のラジオ番組『Magic Hour』を聴くためにここへやってきたのだ。部屋には音楽と静寂が織り成す独特の雰囲気が漂っていた。</p>
+
+        <p>「ゆみちゃん、準備できた？」</p>
+
+        <p>「うん、おばあちゃん用にアレンジも練習したから大丈夫だよ」</p>
+        <p>ゆみ子はキーボードに向けて座る。彼女の右手には小さなミサンガが巻かれており、それはリスナーの誰かからの手作り品だった。</p>
+
+        <p>音符を弾くたびに微細な音が部屋中に広がり始める。</p>
+        <p>「おばあちゃん」</p>
+        <p>はなはゆみ子に向かい、その声は優しく柔らかかった。「ゆみちゃん。私の耳ももう少し悪くなったけど…でもね、あなたの歌を聴くと元気が出るの」</p>
+
+        <p>キーボードから発せられる音が細部まで伝わってくるように感じられていた。</p>
+        <p>「だから今日は、おばあちゃんと一緒に弾いてみてほしいんだ」</p>
+        <p>ゆみ子は手の中にある小さなミサンガを見つめながら微笑んだ。「もちろん…でも大丈夫？ 手も動かせる？」</p>
+        <p>彼女たちは二人で向き合っていた。はながゆみ子のキーボードに近づくと、ゆみ子は少しゆっくりとしたテンポを決め、それを確認すると左手を差し出す。</p>
+
+        <p>「はい」</p>
+        <p>その手にはおばあちゃんの小さな指があった。</p>
+        <p>はなが微笑んだ。「あなたの歌、全部聴こえるよ。触れているから」</p>
+
+        <p>音が響き渡ると同時に、篠原家のリビング全体に満ち溢れる魔法のような空気が広がった。</p>
+
+        <p>ゆみ子の手がキーボードを叩くたびにはなはその振動を感じていた。</p>
+        <p>「おばあちゃん…」</p>
+        <p>彼女の指先から伝わる音と触覚。それは言葉では表現できない感動だった。「これが、あなたの歌？」</p>
+        <p>彼女たち二人はただ静かに立ち尽くしていた。</p>
+
+        <p>「そうだよ、この曲には特別な意味があるの」</p>
+        <p>ゆみ子がゆっくりと言った。</p>
+        <p>「どんな？」</p>
+
+        <p>「ねえ…おばあちゃん。この歌を聴いてくれる人だけが感じ取れるものがあるんだ。それが誰かにとって大切な魔法みたいな時間を作ってくれたら嬉しいと思ってる」</p>
+        <p>はなの目からは笑顔の光り輝く表情が浮かび上がり、その瞳には感動で満ちていた。</p>
+
+        <p>「そうだね…ゆみちゃんの歌は特別だよ」</p>
+        <p>彼女たちは触れ合いながら共に微笑んだ。「風よりも強いって言ってあげてください。絶対届けられるから」</p>
+
+        <p>部屋の中に流れる音楽と静寂が、二人を包んでいた。</p>
+        <p>その時間だけが止まったかのような瞬間。空色の黄昏は次第に濃い紫へと変化し始める。</p>
+
+        <p>「そうだよ…おばあちゃんにも必ず届けるんだ」</p>
+        <p>ゆみ子の声があたたかな夕暮れと共に響き渡り、二人の心をつなぐ魔法が広がっていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-27">
+      <div class="chapter-header">
+        <span class="chapter-number">第27章</span>
+        <h2 class="chapter-title">集まる声</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>春の訪れと共に、街の中は色とりどりの花々が咲き乱れ、風に乗って甘い香りを運んでくる。青空に白雲が浮かび、日差しは暖かな優しさで人々を包み込む。ラジオ局「Wave 78.2」では、ゆず木色の照明と淡いピンクの花柄カーテンが春らしく彩られたブース内にて、篠原ゆみ子が今日も定刻に準備を始めていた。</p>
+
+        <p>ピアノの調律は終わり、音響設備も整えられていた。ミキサー卓でエンジニアの海野航太が作業をしている様子から、放送前の静けさと緊張感を感じる。ブース内の空気が春らしく温かみを帯びている。</p>
+
+        <p>「今日はね」とゆみ子は自問自答しながら笑顔を作った。「ライブのお知らせをして……」。</p>
+
+        <p>音響チェックが終わると、彼女は本日のテーマ曲のピアノ練習に取り掛かる。弾くと同時に歌詞カードを見つめながら言葉を紡ぎ出す。心地よい春風が吹き抜けてきたかのように、声も優しく柔らかい調子になる。</p>
+
+        <p>「『魔法使い』……」</p>
+
+        <p>音楽の魔力は人々を繋げる。それはたったの一曲で変わることもある。ゆみ子の歌声とピアノ演奏はラジオを通じて届けられ、街中に春の訪れと共に響き渡る。</p>
+
+        <p>一方、千鶴は通勤途中に車の中でラジオをつけている。渋滞の中でも音楽が心を癒す。「行きます！ 行ってみたい！」とメッセージを送りたくなり、携帯電話を取り出した。しかし、「美羽には言えない」とためらってしまう。</p>
+
+        <p>千鶴は運転手のミラー越しに後部座席を見ると、娘の美羽が窓際に身を寄せているのが見えた。「お母さんと行くのはどうかな？」そんな声が出ずじまいだった。しかし、彼女自身も心の中では「行こう」と決意していた。</p>
+
+        <p>もう一人は翔太だ。夜遅くまでラジオのアーカイブを聴き続けている部屋から時計が聞こえる。「今度こそ行くべきか？」迷いつつも、「行きたい」そう強く思った瞬間、彼の心に何かが動き始める。</p>
+
+        <p>それぞれの場所で人々が「行きます！」と声に出すことができれば、それは魔法のように繋がる。千鶴は車の中でハンドルを握りしめながら決意した。「美羽には言えないけれど……」そう言い訳をしてしまう自分に少しだけ苛立つ。</p>
+
+        <p>一方で翔太も家族との間に隙間があったとはいえ、この春の風景が彼にとって特別なものになることを願っている。ただ「行きたい」としか思えなかった気持ちを母親へ伝える。「母は怒る？」そんな不安と期待の中での一歩だった。</p>
+
+        <p>祖母のはなもまたテレビでライブ出演を見るため、ラジオからメッセージを受け取った息子に頼んで一番前の座席を取り替えてもらっている。そして、「ゆみちゃんの歌声が聞こえれば」と喜びながら準備を進める。「声は届けられるもの」彼女はそう信じていた。</p>
+
+        <p>一方で航太も、「いつもと同じだよ、マイクの向こうに人がいるだけ」という言葉を通じて、自分の役割とゆみ子への想いを再確認した。その頃、ラジオ局には春の花が飾られており、人々はそれぞれの場所から「行く」ことを決意し始めていた。</p>
+
+        <p>音楽は聴く者に届けられるものだという彼女の声とピアノ演奏もまた、世界を繋げていく。それはただの一曲で変わるかもしれない、魔法のように変われるだろう——。</p>
+
+        <p>春の夜明けとともに街がゆっくりと目覚めつつある。人々それぞれの「行く」という決意は、一瞬にして空に昇りゆく朝日と共に新たな一日へとつながっていくように思えた。</p>
+        <p>この日のマジックアワーは、誰かを待つ音楽と共に始まったのであった。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-28">
+      <div class="chapter-header">
+        <span class="chapter-number">第28章</span>
+        <h2 class="chapter-title">海辺のステージ</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>春の風が頸城岬を優しく吹き抜けていく。遠くに見渡す限りの青い海、近隣には白い砂浜と緑豊かな木々がある。夕暮れ時の空は淡いオレンジ色に染まり始めている。その光が波間から浮かび上がり、人々を包み込むように輝いていた。</p>
+
+        <p>ステージ設営が始まった頃からは、遠くでも聞こえる音楽と人混みの声が重なり合う。誰もが静かな期待感と共に集まってくる。今日ここにいるのはゆみこのファンであり、またそれぞれの生活の中で「Magic Hour」を支え続けてきた人々だ。</p>
+
+        <p>千鶴は小さな娘美羽と一緒に会場へ向かう車から降りた。「もうすぐね？」「そうよ、あそこに見える白いステージが。」彼女たちの足元では、砂浜に光る貝殻と海藻が夕日を反射している。</p>
+
+        <p>一方で翔太は自宅から少し離れた公園近くの広場へと姿を見せる。フードを下ろした彼の顔には曖昧な笑みが浮かんでいる。「行ける、行くよ。」そうつぶやきながら彼もまた人々の中に混ざってゆく。</p>
+
+        <p>最前列に座るはなは、ラジオネーム「さくらの母」として番組を支え続けてきた。祖母からのアドバイス通りに、息子を通じて最善の位置取りが決定していた。「今頃孫も？」と空を見上げると、遠い雲間から届いた夕焼けの色が優しく彼女を目覚めさせた。</p>
+
+        <p>ステージではゆみこ自身の準備が始まった。白いブラウスにロングスカートを纏った姿でピアノに向かう。「Magic Hour」の曲作りは、これまで全てのメッセージと自分たちの日常から生まれてきたものだった。彼女の手が鍵盤を軽く叩いた時、「もう始まっているね」と航太が耳打ちする。</p>
+
+        <p>「そうですね、こうして音楽と一緒に夕暮れが始まるのは、毎回特別な時間です。」ゆみ子は静かに答えた。</p>
+
+        <p>ラジオのエンジニアとして支える彼女の後ろでは、ミキサー卓を操作しながら航太もまた自分の役割と明日への思いに浸っていた。「あなたの声が色になるみたいだよ」と呟くように告げた。</p>
+
+        <p>「それは嬉しい言葉ですね。」ゆみ子は微笑んで返した。</p>
+
+        <p>会場の雑踏から聞こえてくる人々の話しぶりや笑い声、海風と混ざって感じられる塩素と花々の香りが、その瞬間をより特別なものにしていた。「明日へ繋げる準備をする時間。」そんな思いでゆみ子は深呼吸した。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-29">
+      <div class="chapter-header">
+        <span class="chapter-number">第29章</span>
+        <h2 class="chapter-title">響いてく</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>海の匂いが風に乗って漂ってくる。薄暗くなった空には、星々が次第に顔を見せ始めている。音楽イベント「Magic Hour」の最後の一曲も終わり、会場全体は静寂に包まれた。</p>
+
+        <p>波の音だけが遠くで聞こえ、潮騒の匂いと混じって夜の冷気を運んでくる。微かに感じる海風の中、千鶴の肩が揺れる。手紙を握りしめたその小さな身体は震えていた。</p>
+
+        <p>「美羽ちゃん、ママ泣いてるよ」</p>
+
+        <p>七歳の少女が母親の腕を見上げ、優しく言葉を紡ぐ。「大丈夫だよ、もう終わりだから」千鶴と美羽の二人で一つになった手。それは静かな約束のようなものだった。</p>
+
+        <p>隣にいた翔太も、立ち上がり拍手をする人々の中の一員となっていた。彼は耳元にあるイヤフォンを外し、小さな笑顔を見せた。「あの人を見てる人がいて……」と、そっと囁くようにつぶやく。その声が風に乗って消えていく。</p>
+
+        <p>「さくらの母」と呼ばれる老婦人は最前列で両手を合わせて目を閉じていた。海辺から聞こえる波の音が遠くにあり、その穏やかな鼓動と共に心地よい安堵感を与えていた。「ありがとう……」と小さく呟きながらはなは感謝の言葉とともに微かに微笑んだ。</p>
+
+        <p>パーソナリティとしてステージ上で歌ったゆみこを見守る航太もまた、ミキサー卓を前にしながら涙声だった。耳元にあるヘッドフォンから聞こえる音が彼の中でもう一つ新たな形で鳴り響く。「泣いちゃってるよ」と言葉にするのが恥ずかしいほど、ただそれだけで心地よい感覚があった。</p>
+
+        <p>「ゆみちゃんの歌声は……本当に綺麗だったね」</p>
+
+        <p>海風と共に流れるのは人々からのメッセージだ。その中には涙も含まれているが、それ以上に明日への希望と笑顔を手渡していた。「Magic Hour」という一日の集大成を支える航太自身にとって、それは特別な響きとなった。</p>
+
+        <p>200人の拍手は海風と共に会場全体を包み込むように広がった。その中で人々それぞれの表情を見つめると、涙もまた微笑ましいものに変容していた。「終わり」という言葉が必要ない時間だった。だからこそそれは「響いてく」瞬間でもあった。</p>
+
+        <p>波音と拍手が混ざる静けさの中、航太はマイクを握りしめたまま立ち上がり、「明日への歌がもう始まってるね……」と呟きながら頭上に挙げた両腕で微かな笑顔を見せる。その言葉と共に会場全体からもまた温かい拍手の音色があふれていた。</p>
+
+        <p>静寂を紡ぐ波音だけが聞こえてくる頃には、もう誰も去る者の姿は見えなくなっていた。</p>
+      </div>
+    </section>
+    <section class="chapter" id="chapter-30">
+      <div class="chapter-header">
+        <span class="chapter-number">第30章</span>
+        <h2 class="chapter-title">きっと思ったよりも素敵な日になる</h2>
+      </div>
+      
+      <div class="chapter-body">
+        <p>夕陽が海面に沈みかける頃、街の静かな一角でラジオ局「Wave 78.2」のスタジオは日々の仕事と対話を織り交ぜながら回っている。その日も午後五時を前にして、薄明かりの中でゆるやかに揺れ動く影が一つ、もう一人の人間と共に動き出した。</p>
+
+        <p>スタジオ内では、淡い光が夕闇とともに濃くなるのに合わせて作業が始まった。「こんばんは、Magic Hourへようこそ。今日もおつかれさま」という言葉は、その日を始めるための口火となる。しかし何となく違和感があった——それは一年前の自分とは違う音色だった。</p>
+
+        <p>音響エンジニアの海野航太がミキサー台に座り、ゆるやかに操作を行っている。「準備万端です」と彼は無駄な言葉を省きながら報告する。手元では細かい調整を行い、ラジオからの生放送に向けて最後の一歩まで慎重さを保つ。</p>
+
+        <p>「こんにちは、航太さん」</p>
+
+        <p>篠原ゆみこが白いブラウスにロングスカートの姿でスタジオに入ると、静かな歓迎が待ち受けている。今日も同じように明るく笑顔でのぞむ彼女だが、目元には少し疲れが出ている。</p>
+
+        <p>「おつかれさまです」</p>
+
+        <p>航太は立ち上がり、「準備OK」と短い言葉を返す。「ゆみちゃん」のラジオ番組の音響チェックに欠かせない存在として、ここ数年間この仕事を続けてきた。彼女の声がミキサー台から流れる瞬間を見逃したくないと彼は思う。</p>
+
+        <p>「きょうも一日、おつかれさま」</p>
+
+        <p>それはただの一言だが、その重みを二人の間に満ちる安堵とともに感じ取ることができる。「Magic Hour」——放送時間の一秒ごとに刻まれていく夕焼け。その光がスタジオ内に柔らかく広がり始める。</p>
+
+        <p>「メッセージたくさん届いてますね」</p>
+
+        <p>航太はデスクから文書を一枚抜き取り、渡す。「昨日のライブへのリスナーからの声も多いみたいですね」と彼女へと告げる。ゆみこは手元にあるメモを見つめながら、「ありがとうございます」とだけ答えた。</p>
+
+        <p>窓際に目を向けると、薄い茜色が辺りに広がっていた。夕暮れ時の光の変化と共にラジオ局での作業も進行する。「Magic Hour」——その言葉はこの時間帯から始まる一日の終わりの歌となる。</p>
+
+        <p>「今日も17時を待つ人々に向けて、音と声でつながる一時間を始めましょう」</p>
+
+        <p>彼女は深呼吸をして、心地よい楽曲と共に番組が始まった。スタジオ内の空気が静かに揺れ動き出す。「こんばんは、Magic Hourへようこそ」という言葉と一緒に。</p>
+
+        <p>「今日は『やさしくできなかったり 怒ってみたり』のメロディーを少し変えてみました」</p>
+
+        <p>彼女の歌い出しと共に、小さな拍手がスタジオ内から響き渡る。それは放送が始まる瞬間への祝いでもあった。「明日に繋がる。あなたに繋がる」という言葉は今日一日の終わりと明日へ向けた始まりを同時に告げる。</p>
+
+        <p>「今夜も、素敵な一時間をお届けしますね」</p>
+
+        <p>メッセージ読み上げタイムでは、昨日のイベント後の感情的な声や笑顔が次々と紡ぎ出される。「この曲があなたを支えますように」という言葉はリスナーたちへ向けられた愛情深い贈り物となる。</p>
+
+        <p>「今日もたくさんの皆さんから素敵なメッセージありがとうございました」</p>
+
+        <p>そしてそれは放送の終わりを告げる時間となった。ON AIRランプが消えていく瞬間、航太とゆみことの視線がわずかに交差する。「また明日ね」と彼女は微笑んで手を振る。</p>
+
+        <p>「ゆっくり休んでください」</p>
+        <p>その言葉と共に窓越しに再び手を振り返す。茜色の光の中で揺れ動く鳥たちも、まるで彼ら二人に向けて何かを告げているかのように見えた。</p>
+
+        <p>この時間帯にはいつも、特別な何かが流れ出るようだ。「明日への歌が始まったね」と航太は静かな笑顔でつぶやいた。その声が放送室に響き渡り、「ありがとう」の一言と共に夜の訪れを告げる。</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Magic Hour ─ きっと思ったよりも素敵な日になる</p>
+    <p>Generated locally with Ollama + Stable Diffusion</p>
+  </footer>
+
+
+  <button class="tts-fab" id="ttsFab" onclick="ttsToggle()" title="Read aloud">
+    <span id="ttsFabIcon">&#x1f50a;</span>
+  </button>
+  <div class="tts-bar" id="ttsBar">
+    <button onclick="ttsPause()" id="ttsPauseBtn">&#x23f8;</button>
+    <button onclick="ttsStop()">&#x23f9;</button>
+    <button onclick="ttsPrev()">&#x23ee;</button>
+    <button onclick="ttsNext()">&#x23ed;</button>
+    <span class="tts-info" id="ttsInfo">Ready</span>
+    <span class="tts-speed">
+      <input type="range" id="ttsSpeed" min="0.5" max="2.0" step="0.1"
+             value="1.0" onchange="ttsSetSpeed(this.value)" />
+      <span id="ttsSpeedVal">1.0x</span>
+    </span>
+  </div>
+
+  <button class="mode-toggle" onclick="toggleMode()">🌗 表示切替</button>
+
+  <script>
+    // Reading mode
+    function toggleMode() {
+      document.body.classList.toggle('light');
+      localStorage.setItem('mode', document.body.classList.contains('light') ? 'light' : 'dark');
+    }
+    if (localStorage.getItem('mode') === 'light') document.body.classList.add('light');
+
+    // Scroll progress
+    window.addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+      document.getElementById('progress').style.width = pct + '%';
+    });
+
+    // === TTS (Web Speech API) ===
+    const synth = window.speechSynthesis;
+    let ttsChs = [], ttsI = 0, ttsRate = 1.0, ttsOn = false, ttsPd = false;
+
+    document.querySelectorAll('.chapter').forEach((sec, i) => {
+      const b = sec.querySelector('.chapter-body');
+      const t = sec.querySelector('.chapter-title');
+      if (b) ttsChs.push({
+        title: t ? t.textContent : ('Ch.' + (i+1)),
+        text: b.textContent.trim(), el: sec
+      });
+    });
+
+    function ttsToggle() {
+      if (!synth) { alert('Speech not supported'); return; }
+      if (ttsOn) { ttsStop(); return; }
+      const sy = window.scrollY + window.innerHeight / 3;
+      let cl = 0;
+      ttsChs.forEach((c, i) => { if (c.el.offsetTop <= sy) cl = i; });
+      ttsI = cl; ttsOn = true; ttsPd = false;
+      document.getElementById('ttsFab').classList.add('speaking');
+      document.getElementById('ttsFabIcon').innerHTML = '&#x23f9;';
+      document.getElementById('ttsBar').classList.add('active');
+      _ttsRead();
+    }
+
+    function _ttsRead() {
+      if (ttsI >= ttsChs.length) { ttsStop(); return; }
+      synth.cancel();
+      const ch = ttsChs[ttsI];
+      document.getElementById('ttsInfo').textContent = ch.title;
+      ch.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Split by Japanese sentence endings for reliable playback
+      const sents = ch.text.match(/[^。！？
+]+[。！？]?/g) || [ch.text];
+      let si = 0;
+
+      function next() {
+        if (!ttsOn) return;
+        if (si >= sents.length) {
+          ttsI++;
+          if (ttsI < ttsChs.length) setTimeout(_ttsRead, 800);
+          else ttsStop();
+          return;
+        }
+        const u = new SpeechSynthesisUtterance(sents[si].trim());
+        u.lang = 'ja-JP'; u.rate = ttsRate;
+        const vs = synth.getVoices();
+        const jv = vs.find(v => v.lang && v.lang.startsWith('ja'));
+        if (jv) u.voice = jv;
+        u.onend = () => { si++; next(); };
+        u.onerror = () => { si++; next(); };
+        synth.speak(u);
+      }
+      next();
+    }
+
+    function ttsPause() {
+      if (!ttsOn) return;
+      if (ttsPd) {
+        synth.resume(); ttsPd = false;
+        document.getElementById('ttsPauseBtn').innerHTML = '&#x23f8;';
+      } else {
+        synth.pause(); ttsPd = true;
+        document.getElementById('ttsPauseBtn').innerHTML = '&#x25b6;';
+      }
+    }
+
+    function ttsStop() {
+      synth.cancel(); ttsOn = false; ttsPd = false;
+      document.getElementById('ttsFab').classList.remove('speaking');
+      document.getElementById('ttsFabIcon').innerHTML = '&#x1f50a;';
+      document.getElementById('ttsBar').classList.remove('active');
+      document.getElementById('ttsInfo').textContent = 'Ready';
+      document.getElementById('ttsPauseBtn').innerHTML = '&#x23f8;';
+    }
+
+    function ttsNext() { if (ttsOn && ttsI < ttsChs.length - 1) { ttsI++; _ttsRead(); } }
+    function ttsPrev() { if (ttsOn && ttsI > 0) { ttsI--; _ttsRead(); } }
+    function ttsSetSpeed(v) {
+      ttsRate = parseFloat(v);
+      document.getElementById('ttsSpeedVal').textContent = v + 'x';
+    }
+    if (synth) synth.onvoiceschanged = () => synth.getVoices();
+
+  </script>
+</body>
+</html>
